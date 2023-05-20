@@ -1,7 +1,8 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 function RequireLogIn() {
-  return <div>RequireLogIn</div>;
+  return <Outlet />;
 }
 
 export default RequireLogIn;

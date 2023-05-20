@@ -17,6 +17,11 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import HtmlIcon from "@mui/icons-material/Html";
+import PrintIcon from "@mui/icons-material/Print";
+import InfoIcon from "@mui/icons-material/Info";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import BrushIcon from "@mui/icons-material/Brush";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 const drawerWidth = 240;
 
@@ -67,7 +72,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-function SideDrawer() {
+function SideDrawer({ enableFullScreen }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -78,16 +83,44 @@ function SideDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleClick = (e) => {
+    switch (e.currentTarget.getAttribute("name")) {
+      case "Open":
+        break;
+      case "Print":
+        break;
+      case "Download Pdf":
+        break;
+      case "Download Html":
+        break;
+      case "Full Screen":
+        enableFullScreen();
+        break;
+      case "Designer":
+        break;
+      case "Exit to Home":
+        break;
+      case "Info":
+        break;
+      default:
+    }
+  };
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer
+      variant="permanent"
+      open={open}
+      PaperProps={{
+        sx: {
+          backgroundColor: "lightsteelblue",
+          color: "#000066",
+        },
+      }}
+    >
       <DrawerHeader>
         {open ? (
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+          <IconButton color="inherit" onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
           </IconButton>
         ) : (
           <IconButton
@@ -99,56 +132,79 @@ function SideDrawer() {
           </IconButton>
         )}
       </DrawerHeader>
-      <Divider />
+      <Divider color="#000066" />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
+        {["Open", "Print", "Download Pdf", "Download Html"].map(
+          (text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                name={text}
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
                 }}
+                onClick={handleClick}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    color: "#000066",
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  {[
+                    <FileOpenIcon key={text} />,
+                    <PrintIcon key={text} />,
+                    <PictureAsPdfIcon key={text} />,
+                    <HtmlIcon key={text} />,
+                  ].map((element, i) => {
+                    if (index === i) return element;
+                  })}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
-      <Divider />
+      <Divider color="#000066" />
       <List sx={{ position: "absolute", bottom: "5px" }}>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-              onClick={() => alert("working")}
-            >
-              <ListItemIcon
+        {["Full Screen", "Designer", "Exit to Home", "Info"].map(
+          (text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                name={text}
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
                 }}
+                onClick={handleClick}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    color: "#000066",
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  {[
+                    <FullscreenIcon key={text} />,
+                    <BrushIcon key={text} />,
+                    <ExitToAppIcon key={text} />,
+                    <InfoIcon key={text} />,
+                  ].map((element, i) => {
+                    if (index === i) return element;
+                  })}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          )
+        )}
       </List>
     </Drawer>
   );

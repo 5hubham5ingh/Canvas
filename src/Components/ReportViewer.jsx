@@ -1,15 +1,22 @@
-import * as React from "react";
-
 import Box from "@mui/material/Box";
 
 import Typography from "@mui/material/Typography";
-import SideDrawer from "./Components/SideDrawer";
+import SideDrawer from "./SideDrawer";
+import { useRef } from "react";
 
 export default function ReportViewer() {
+  const viewerRef = useRef();
+  const enableFullScreen = () => {
+    viewerRef.current.requestFullscreen();
+  };
   return (
     <Box sx={{ display: "flex" }}>
-      <SideDrawer />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <SideDrawer enableFullScreen={enableFullScreen} />
+      <Box
+        component="main"
+        ref={viewerRef}
+        sx={{ flexGrow: 1, p: 3, backgroundColor: "white" }}
+      >
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
