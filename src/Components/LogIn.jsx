@@ -1,5 +1,7 @@
 import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import { useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { logInValidationSchema } from "../utils/schema";
 
 const LogIn = forwardRef((props, ref) => {
   const [open, setOpen] = useState(false);
@@ -12,9 +14,22 @@ const LogIn = forwardRef((props, ref) => {
     setOpen(true);
   };
 
-  useImperativeHandle(ref, () => {
-    return { open: handleOpen };
-  });
+  const logIn = () => {};
+
+  const initialValues = {
+    accountName: "",
+    key: "",
+  };
+  const initialParameters = {
+    initialValues: initialValues,
+    validationSchema: logInValidationSchema,
+    enableReinitialize: true,
+    validateOnChange: true,
+    onSubmit: logIn,
+  };
+
+  const { errors, handleSubmit, handleBlur, handleChange, values, touched } =
+    useFormik(initialParameters);
 
   let scrollX;
   let scrollY;
@@ -52,6 +67,10 @@ const LogIn = forwardRef((props, ref) => {
     boxShadow: 24,
     p: 4,
   };
+
+  useImperativeHandle(ref, () => {
+    return { open: handleOpen };
+  });
   return (
     <Modal
       open={open}
@@ -62,10 +81,28 @@ const LogIn = forwardRef((props, ref) => {
       <Box sx={style}>
         <Grid container component={"form"} spacing={2}>
           <Grid item xs={12} sm={6}>
-            <TextField label="Account name" fullWidth />
+            <TextField
+              name="accountName"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.accountName}
+              error={errors.accountName && touched?.accountName}
+              helperText={touched?.accountName ? errors.accountName : ""}
+              label="Account name"
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField label="Key" fullWidth />
+            <TextField
+              name="key"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.key}
+              error={errors.key && touched?.key}
+              helperText={touched?.key ? errors?.key : ""}
+              label="Key"
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12}>
             <Button
@@ -78,6 +115,7 @@ const LogIn = forwardRef((props, ref) => {
                 "&:hover": { backgroundColor: "darkblue", color: "white" },
               }}
               type="submit"
+              onClick={handleSubmit}
             >
               Submit
             </Button>
