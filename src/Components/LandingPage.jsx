@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import Background from "./Background";
 import Appbar from "./Appbar";
 import LogIn from "./LogIn";
+import SignUpNLoginModal from "./SignUpNLogInModal";
 
 function LandingPage() {
   const logInRef = useRef();
@@ -13,7 +14,8 @@ function LandingPage() {
       <Appbar {...appBarProps} />
 
       <Background />
-      <LogIn ref={logInRef} />
+      <SignUpNLoginModal ref={logInRef} />
+      {/* <LogIn ref={logInRef} /> */}
     </div>
   );
 }
