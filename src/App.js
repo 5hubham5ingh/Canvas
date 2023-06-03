@@ -4,17 +4,21 @@ import ReportDesigner from "./Components/ReportDesigner";
 import ReportViewer from "./Components/ReportViewer";
 import RequireLogIn from "./Components/RequireLogIn";
 import LandingPage from "./Components/LandingPage";
+import SnackBar from "./Components/snackbar/SnackBar";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route element={<RequireLogIn />}>
-          <Route path="/Designer" element={<ReportDesigner />} />
-          <Route path="/Viewer" element={<ReportViewer />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <SnackBar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route element={<RequireLogIn />}>
+            <Route path="/Designer" element={<ReportDesigner />} />
+            <Route path="/Viewer" element={<ReportViewer />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }

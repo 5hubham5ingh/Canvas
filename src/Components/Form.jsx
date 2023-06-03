@@ -1,11 +1,53 @@
 import { logInValidationSchema } from "../utils/schema";
 import { useFormik } from "formik";
 import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
+import { useSnackBar } from "./snackbar/SnackBar";
+import { ACTION } from "./snackbar/Actions";
 
 function Form(props) {
-  const logIn = () => {};
-  const signUp = () => {};
-  const submit = () => {};
+  const snackbar = useSnackBar();
+  const logIn = (values) => {
+    //Get the account from local storage
+    const accountString = localStorage.getItem(values.accountName);
+    //Check if account exists
+    if (accountString !== null) {
+      const account = JSON.parse(accountString);
+      //Check if the key matches
+      if (account.key === values.key) {
+      }
+      //If the key doesn't match
+      else {
+        snackbar.dispatch(ACTION.INVALID_KEY);
+      }
+    }
+    //if the account doesn't exists
+    else {
+      snackbar.dispatch(ACTION.INVALID_ACCOUNT);
+    }
+  };
+  const signUp = (values) => {
+    const accounts = Object.key(localStorage);
+    //If account already exists
+    if (accounts.includes(values.accountName)) {
+      snackbar.dispatch(ACTION.ACCOUNT_ALREADY_EXITS);
+    } else {
+      try {
+        let data = JSON.stringify({
+          accountName: values.accountName,
+          key: values.key,
+          report: [],
+        });
+        localStorage.setItem(values.accountName, data);
+        snackbar.dispatch(ACTION.SIGNED_UP);
+      } catch (e) {
+        if (e.name === "QuotaExceededError") {
+          snackbar.dispatch(ACTION.STORAGE_FULL);
+        }
+      }
+    }
+  };
+  const submit = (values) =>
+    props.type === "SignUp" ? signUp(values) : logIn(values);
 
   const initialValues = {
     accountName: "",
@@ -23,6 +65,9 @@ function Form(props) {
     useFormik(initialParameters);
   return (
     <Grid container component={"form"} spacing={2}>
+      <Grid item xs={12} sm={12}>
+        <Typography variant="h5">{props.type}</Typography>
+      </Grid>
       <Grid item xs={12} sm={6}>
         <TextField
           name="accountName"
@@ -74,7 +119,7 @@ function Form(props) {
           </Typography>
         ) : (
           <Typography variant="subtitle2">
-            Doesn't have an account?
+            Don't have an account?
             <Button size="small" onClick={() => props.setTab("SignUp")}>
               SignUp
             </Button>

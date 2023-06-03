@@ -9,11 +9,20 @@ export default function Appbar(props) {
   const navigate = useNavigate();
   const handleClick = (button) => {
     switch (button.target.name) {
+      case "designer":
+        navigate("/designer");
+        break;
       case "viewer":
         navigate("/viewer");
         break;
       case "logIn":
         props.logIn.current.open();
+        break;
+      case "signUp":
+        props.signUp.current.open();
+        break;
+      case "about":
+        break;
       default:
     }
   };
@@ -35,7 +44,13 @@ export default function Appbar(props) {
         >
           Canvas
         </Typography>
-        <Button sx={{ color: "aqua", marginRight: "50px" }}>Designer</Button>
+        <Button
+          name="designer"
+          onClick={handleClick}
+          sx={{ color: "aqua", marginRight: "50px" }}
+        >
+          Designer
+        </Button>
         <Button
           name="viewer"
           onClick={handleClick}
@@ -50,8 +65,16 @@ export default function Appbar(props) {
         >
           Login
         </Button>
-        <Button sx={{ color: "aqua", marginRight: "50px" }}>SignUp</Button>
-        <Button sx={{ color: "aqua" }}>About</Button>
+        <Button
+          name="signUp"
+          onClick={handleClick}
+          sx={{ color: "aqua", marginRight: "50px" }}
+        >
+          SignUp
+        </Button>
+        <Button name="about" onClick={handleClick} sx={{ color: "aqua" }}>
+          About
+        </Button>
       </Toolbar>
     </AppBar>
   );
