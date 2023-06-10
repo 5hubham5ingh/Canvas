@@ -4,9 +4,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { useModal } from "./modal/Modal";
 
 export default function Appbar(props) {
   const navigate = useNavigate();
+  const { dispatch } = useModal();
   const handleClick = (button) => {
     switch (button.target.name) {
       case "designer":
@@ -16,7 +18,8 @@ export default function Appbar(props) {
         navigate("/viewer");
         break;
       case "logIn":
-        props.logIn.current.open();
+        // props.logIn.current.open();
+        dispatch({ type: "open" });
         break;
       case "signUp":
         props.signUp.current.open();

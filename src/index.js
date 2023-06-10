@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { SnackBarContextProvider } from "./Components/snackbar/SnackBar";
+import { ModalContextProvider } from "./Components/modal/Modal";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <SnackBarContextProvider>
-      <App />
+      <ModalContextProvider>
+        <App />
+      </ModalContextProvider>
     </SnackBarContextProvider>
   </React.StrictMode>
 );

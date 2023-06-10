@@ -5,11 +5,13 @@ import ReportViewer from "./Components/ReportViewer";
 import RequireLogIn from "./Components/RequireLogIn";
 import LandingPage from "./Components/LandingPage";
 import SnackBar from "./Components/snackbar/SnackBar";
+import { Modal } from "./Components/modal/Modal";
 
 export default function App() {
   return (
     <>
       <SnackBar />
+      <Modal />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
