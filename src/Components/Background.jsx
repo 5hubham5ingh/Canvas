@@ -1,7 +1,7 @@
 import React from "react";
 import background from "../images/background.png";
 
-function Background() {
+function Background({ children }) {
   return (
     <div
       style={{
@@ -9,13 +9,13 @@ function Background() {
         backgroundRepeat: "round",
         height: "220vh",
         width: "100vw",
-        textAlign: "center",
-        verticalAlign: "center",
         // backgroundSize: "100%",
         backgroundSize: "cover",
         // filter: "blur(5px)",
       }}
-    ></div>
+    >
+      {children}
+    </div>
   );
 }
 

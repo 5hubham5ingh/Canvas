@@ -1,17 +1,17 @@
 import React, { useRef } from "react";
 import Background from "./Background";
 import Appbar from "./Appbar";
+import About from "./About";
 
 function LandingPage() {
-  const logInRef = useRef();
-  const appBarProps = {
-    logIn: logInRef,
-  };
+  const aboutRef = useRef();
+
   return (
     <div>
-      <Appbar {...appBarProps} />
-
-      <Background />
+      <Appbar aboutRef={aboutRef} />
+      <Background>
+        <About ref={aboutRef} />
+      </Background>
     </div>
   );
 }
