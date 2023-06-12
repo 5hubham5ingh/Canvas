@@ -1,16 +1,22 @@
 import { Box, Modal as MUIModal } from "@mui/material";
 import SignUpNLogInTab from "../SignUpNLogInTabs";
 import { useReducer, createContext, useContext } from "react";
+import { ACTION } from "./Action";
 
-const initialState = false;
+const initialState = {
+  what: "",
+  open: false,
+};
 
 // Modal reducer
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case ACTION.OPEN_LOGIN:
+      return { what: "logIn", open: true };
+    case ACTION.OPEN_SIGNUP:
+      return { what: "signUp", open: true };
     case "close":
-      return false;
-    case "open":
-      return true;
+      return initialState;
     default:
   }
 }
@@ -20,10 +26,10 @@ const modalContext = createContext();
 
 // Modal Context provider
 export function ModalContextProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatchModal] = useReducer(reducer, initialState);
 
   return (
-    <modalContext.Provider value={{ state, dispatch }}>
+    <modalContext.Provider value={{ state, dispatchModal }}>
       {children}
     </modalContext.Provider>
   );
@@ -36,7 +42,7 @@ export function useModal() {
 
 // Modal Component
 export function Modal() {
-  const { state, dispatch } = useModal();
+  const { state, dispatchModal } = useModal();
 
   const style = {
     position: "absolute",
@@ -52,18 +58,24 @@ export function Modal() {
   };
 
   const handleClose = () => {
-    dispatch({ type: "close" });
+    dispatchModal({ type: "close" });
   };
 
   return (
     <MUIModal
-      open={state}
+      open={state.open}
       onClose={handleClose}
       aria-labelledby="log-in"
       aria-describedby="log-in-page"
     >
       <Box sx={style}>
-        <SignUpNLogInTab />
+        {state.what === "signUp" ? (
+          <SignUpNLogInTab tab={state.what} />
+        ) : state.what === "logIn" ? (
+          <SignUpNLogInTab tab={state.what} />
+        ) : (
+          ""
+        )}
       </Box>
     </MUIModal>
   );

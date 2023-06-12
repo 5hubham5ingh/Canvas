@@ -1,30 +1,26 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
-import { Button } from "@mui/material";
 
-export default function SignUpNLogInTab() {
-  const [value, setValue] = React.useState("LogIn");
+export default function SignUpNLogInTab({ tab }) {
+  const [value, setValue] = React.useState(tab);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // React.useEffect(() => {
+  //   setValue(tab);
+  // }, []);
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
-        <TabPanel value="LogIn">
+        <TabPanel value="logIn">
           <LogIn setTab={setValue} />
         </TabPanel>
-        <TabPanel value="SignUp">
+        <TabPanel value="signUp">
           <SignUp setTab={setValue} />
         </TabPanel>
-        {/* <Button variant="contained" onClick={() => setValue("SignUp")}></Button> */}
       </TabContext>
     </Box>
   );

@@ -47,7 +47,7 @@ function Form(props) {
     }
   };
   const submit = (values) =>
-    props.type === "SignUp" ? signUp(values) : logIn(values);
+    props.type === "signUp" ? signUp(values) : logIn(values);
 
   const initialValues = {
     accountName: "",
@@ -60,13 +60,17 @@ function Form(props) {
     validateOnChange: true,
     onSubmit: submit,
   };
-
+  debugger;
+  console.log("props.type ", props.type);
   const { errors, handleSubmit, handleBlur, handleChange, values, touched } =
     useFormik(initialParameters);
+
   return (
     <Grid container component={"form"} spacing={2}>
       <Grid item xs={12} sm={12}>
-        <Typography variant="h5">{props.type}</Typography>
+        <Typography variant="h5">
+          {props.type === "signUp" ? "SignUp" : "LogIn"}
+        </Typography>
       </Grid>
       <Grid item xs={12} sm={6}>
         <TextField
@@ -110,17 +114,17 @@ function Form(props) {
       </Grid>
       <Grid item xs={12}>
         <Divider color="#000066" />
-        {props.type === "SignUp" ? (
+        {props.type === "signUp" ? (
           <Typography variant="subtitle2">
             Already have an account?
-            <Button size="small" onClick={() => props.setTab("LogIn")}>
+            <Button size="small" onClick={() => props.setTab("logIn")}>
               LogIn
             </Button>
           </Typography>
         ) : (
           <Typography variant="subtitle2">
             Don't have an account?
-            <Button size="small" onClick={() => props.setTab("SignUp")}>
+            <Button size="small" onClick={() => props.setTab("signUp")}>
               SignUp
             </Button>
           </Typography>

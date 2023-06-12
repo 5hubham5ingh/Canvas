@@ -4,7 +4,7 @@ import Form from "./Form";
 function SignUp(prop) {
   const props = {
     ...prop,
-    type: "SignUp",
+    type: "signUp",
   };
   return <Form {...props} />;
 }
