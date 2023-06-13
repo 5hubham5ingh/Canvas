@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "./modal/Modal";
 import { ACTION as modalAction } from "./modal/Action";
-import { Link } from "react-scroll";
+import { animateScroll } from "react-scroll";
 
 export default function Appbar({ aboutRef }) {
   const navigate = useNavigate();
@@ -28,11 +28,7 @@ export default function Appbar({ aboutRef }) {
         dispatchModal({ type: modalAction.OPEN_SIGNUP });
         break;
       case "about":
-        const targetDiv = document.getElementById("about");
-        window.scrollTo({
-          top: targetDiv,
-          behavior: "smooth",
-        });
+        animateScroll.scrollToBottom();
         break;
       default:
     }

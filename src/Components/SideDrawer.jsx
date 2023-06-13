@@ -3,17 +3,13 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import { styled, useTheme } from "@mui/material/styles";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { styled } from "@mui/material/styles";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import HtmlIcon from "@mui/icons-material/Html";
@@ -73,7 +69,6 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 function SideDrawer({ enableFullScreen }) {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -159,9 +154,12 @@ function SideDrawer({ enableFullScreen }) {
                     <PrintIcon key={text} />,
                     <PictureAsPdfIcon key={text} />,
                     <HtmlIcon key={text} />,
-                  ].map((element, i) => {
-                    if (index === i) return element;
-                  })}
+                  ].map(
+                    // eslint-disable-next-line
+                    (element, i) => {
+                      if (index === i) return element;
+                    }
+                  )}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -196,9 +194,12 @@ function SideDrawer({ enableFullScreen }) {
                     <BrushIcon key={text} />,
                     <ExitToAppIcon key={text} />,
                     <InfoIcon key={text} />,
-                  ].map((element, i) => {
-                    if (index === i) return element;
-                  })}
+                  ].map(
+                    // eslint-disable-next-line
+                    (element, i) => {
+                      if (index === i) return element;
+                    }
+                  )}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>

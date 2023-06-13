@@ -5,7 +5,7 @@ export default function About() {
   return (
     <Box
       sx={{
-        position: "absolute",
+        position: "relative",
         color: "aqua",
         backgroundImage: "linear-gradient(transparent, black, black)",
         top: "210vh",
