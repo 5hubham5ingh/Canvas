@@ -1,51 +1,119 @@
 import Box from "@mui/material/Box";
-
-import Typography from "@mui/material/Typography";
+import { Core, HtmlExport } from "@grapecity/activereports";
 import SideDrawer from "./SideDrawer";
-import { useRef } from "react";
+import "./Styles/Viewer.css";
+import { useEffect, useRef, useState } from "react";
+import { parse as parseNode } from "node-html-parser";
+import parse from "html-react-parser";
+import { PDFExport } from "@progress/kendo-react-pdf";
+import { useReactToPrint } from "react-to-print";
+import report from "./../utils/Report.json";
 
 export default function ReportViewer() {
   const viewerRef = useRef();
+  const Report = report[0];
+  const pdfExportSettings = {
+    title: "Invoice",
+    author: "Gstcafe",
+    keywords: "export, report",
+    subject: "Report",
+    pdfVersion: "2.0",
+  };
+
+  const [result, setResult] = useState();
+  const exportRef = useRef();
+  const invoiceRef = useRef();
+
+  useEffect(() => {
+    //function definition to create html report from Report received as prop
+    async function loadReport() {
+      //create new active report js report
+      const report = new Core.PageReport();
+
+      //load the Report received as prop into the new report
+      await report.load(Report.definition);
+
+      //create a doc of the report
+      const doc = await report.run();
+
+      //create html report from the report doc
+      const result = await HtmlExport.exportDocument(doc, pdfExportSettings);
+
+      //set the newly modified html as result
+      setResult(() => {
+        //get the root of newly crated html report
+        const root = parseNode(result.data);
+
+        //remove watermark by adding ".arjs-textBoxItem span{ display: none}" css class to the body inside <head>
+        root.getElementsByTagName("style")[0].innerHTML = `body { 
+          margin: 0pt;
+				padding: 0pt;
+			}
+			 .arjs-reportPage {
+				page-break-after: always;
+			}
+			@page {
+				margin: 0mm;
+			}
+			.arjs-textBoxItem span{
+				display:none;
+			}`;
+
+        result.data = root;
+        return result;
+      });
+    }
+
+    //call the function to load the Report received as prop and modify it to remove the watermark
+    loadReport();
+  }, []);
+
+  // npm PDFexport
+  const ExportPdf = () => {
+    // document.getElementById("report").style = { display: "block" };
+    if (exportRef.current) {
+      console.log("Xref.current:", exportRef.current);
+      exportRef.current.save("invoice");
+    }
+    // document.getElementById("report").style.display = "none";
+  };
+
+  // npm react-to-print
+  const print = useReactToPrint({
+    content: () => invoiceRef.current,
+    documentTitle: "Invoice",
+  });
+
   const enableFullScreen = () => {
     viewerRef.current.requestFullscreen();
   };
+
   return (
     <Box sx={{ display: "flex" }}>
-      <SideDrawer enableFullScreen={enableFullScreen} />
+      <SideDrawer
+        enableFullScreen={enableFullScreen}
+        print={print}
+        exportPdf={ExportPdf}
+      />
       <Box
         component="main"
         ref={viewerRef}
         sx={{ flexGrow: 1, p: 3, backgroundColor: "white" }}
       >
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        {result?.data !== undefined ? (
+          <PDFExport
+            title="Invoice"
+            author="GSTCafe"
+            paperSize="A4"
+            margin="0"
+            scale={0.75}
+            ref={exportRef}
+          >
+            <div ref={invoiceRef}>{parse(result.data.toString())}</div>
+          </PDFExport>
+        ) : (
+          "Report doesn't exits."
+        )}
       </Box>
     </Box>
   );
