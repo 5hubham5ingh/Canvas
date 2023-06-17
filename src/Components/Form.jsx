@@ -3,26 +3,22 @@ import { useFormik } from "formik";
 import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { useSnackBar } from "./snackbar/SnackBar";
 import { ACTION } from "./snackbar/Actions";
+import { sendRequest, RequestType, MethodType } from "../Server/server";
 
 function Form(props) {
   const snackbar = useSnackBar();
   const logIn = (values) => {
-    //Get the account from local storage
-    const accountString = localStorage.getItem(values.accountName);
-    //Check if account exists
-    if (accountString !== null) {
-      const account = JSON.parse(accountString);
-      //Check if the key matches
-      if (account.key === values.key) {
-      }
-      //If the key doesn't match
-      else {
+    //Send logIn request
+    const response = sendRequest(MethodType.GET, RequestType.LOGIN, values);
+
+    if (response.error !== undefined) {
+      //LogIn unsuccessful
+      if (response.error === "invalid_key")
         snackbar.dispatch(ACTION.INVALID_KEY);
-      }
-    }
-    //if the account doesn't exists
+      else if (response.error === "invalid_account")
+        snackbar.dispatch(ACTION.INVALID_ACCOUNT);
+    } //Login Successful
     else {
-      snackbar.dispatch(ACTION.INVALID_ACCOUNT);
     }
   };
   const signUp = (values) => {
