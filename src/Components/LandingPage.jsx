@@ -1,16 +1,14 @@
-import React, { useRef } from "react";
+
 import Background from "./Background";
 import Appbar from "./Appbar";
 import About from "./About";
 
 function LandingPage() {
-  const aboutRef = useRef();
-
   return (
     <div>
-      <Appbar  />
+      <Appbar />
       <Background>
-        <About ref={aboutRef} />
+        <About />
       </Background>
     </div>
   );

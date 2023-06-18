@@ -5,14 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { SnackBarContextProvider } from "./Components/snackbar/SnackBar";
 import { ModalContextProvider } from "./Components/modal/Modal";
+import { UserContextProvider } from "./Components/User/userContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <SnackBarContextProvider>
-      <ModalContextProvider>
-        <App />
-      </ModalContextProvider>
+      <UserContextProvider>
+        <ModalContextProvider>
+          <App />
+        </ModalContextProvider>
+      </UserContextProvider>
     </SnackBarContextProvider>
   </React.StrictMode>
 );

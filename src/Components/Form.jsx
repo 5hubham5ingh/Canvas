@@ -4,46 +4,22 @@ import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { useSnackBar } from "./snackbar/SnackBar";
 import { ACTION } from "./snackbar/Actions";
 import { sendRequest, RequestType, MethodType } from "../Server/server";
+import { ERROR as SERVER_ERRORS } from "./../Server/error";
+import { useUser } from "./User/userContext";
+import { ACTION as USER_ACTIONS } from "./User/action";
 
 function Form(props) {
   const snackbar = useSnackBar();
+  const { user, dispatch } = useUser();
   const logIn = (values) => {
-    //Send logIn request
-    const response = sendRequest(MethodType.GET, RequestType.LOGIN, values);
-
-    if (response.error !== undefined) {
-      //LogIn unsuccessful
-      if (response.error === "invalid_key")
-        snackbar.dispatch(ACTION.INVALID_KEY);
-      else if (response.error === "invalid_account")
-        snackbar.dispatch(ACTION.INVALID_ACCOUNT);
-    } //Login Successful
-    else {
-    }
+    dispatch({ type: USER_ACTIONS.SIGNIN, payload: values });
   };
   const signUp = (values) => {
-    const accounts = Object.key(localStorage);
-    //If account already exists
-    if (accounts.includes(values.accountName)) {
-      snackbar.dispatch(ACTION.ACCOUNT_ALREADY_EXITS);
-    } else {
-      try {
-        let data = JSON.stringify({
-          accountName: values.accountName,
-          key: values.key,
-          report: [],
-        });
-        localStorage.setItem(values.accountName, data);
-        snackbar.dispatch(ACTION.SIGNED_UP);
-      } catch (e) {
-        if (e.name === "QuotaExceededError") {
-          snackbar.dispatch(ACTION.STORAGE_FULL);
-        }
-      }
-    }
+    dispatch({ type: USER_ACTIONS.SIGNUP, payload: values });
   };
-  const submit = (values) =>
+  const submit = (values) => {
     props.type === "signUp" ? signUp(values) : logIn(values);
+  };
 
   const initialValues = {
     accountName: "",
@@ -56,8 +32,7 @@ function Form(props) {
     validateOnChange: true,
     onSubmit: submit,
   };
-  debugger;
-  console.log("props.type ", props.type);
+
   const { errors, handleSubmit, handleBlur, handleChange, values, touched } =
     useFormik(initialParameters);
 
@@ -100,7 +75,7 @@ function Form(props) {
             float: "right",
             borderRadius: "10px",
             color: "black",
-            "&:hover": { backgroundColor: "darkblue", color: "white" },
+            "&:hover": { backgroundColor: "#1DA1F2", color: "white" },
           }}
           type="submit"
           onClick={handleSubmit}

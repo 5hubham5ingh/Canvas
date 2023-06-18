@@ -4,7 +4,7 @@ import { ACTION } from "./Actions";
 
 const initialState = {
   message: "",
-  severity: "",
+  severity: "success",
   visibility: false,
 };
 
@@ -63,7 +63,7 @@ function reducer(state = initialState, action) {
     default:
       return {
         message: "",
-        severity: "none",
+        severity: "success",
         visibility: false,
       };
   }
@@ -72,12 +72,12 @@ function reducer(state = initialState, action) {
 //SnackBar component
 export default function SnackBar() {
   const snackbar = useSnackBar();
-  const close = () => snackbar.dispatch("");
+  const close = () => snackbar.dispatch("close");
   return (
     <>
       <Snackbar
         message={snackbar.state.message}
-        autoHideDuration={2500}
+        autoHideDuration={3000}
         open={snackbar.state.visibility}
         onClose={close}
         anchorOrigin={{

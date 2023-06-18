@@ -1,5 +1,9 @@
+import { ACTION } from "./Database/actions";
+import { QUERIES } from "./Database/queries";
 import database from "./Database/useDatabase";
 import useDatabase from "./Database/useDatabase";
+import { ERROR } from "./error";
+import { RESPONSE } from "./responce";
 
 export const MethodType = {
   GET: "get",
@@ -19,6 +23,14 @@ export const RequestType = {
   DELETE_FILE: "deleteFile",
 };
 
+const serverResponse = (status, data) => {
+  return { status: status, data: data };
+};
+
+const newAccount = (body)=>{
+
+}
+
 /**
  * @param {MethodType} methodType requestType
  * @param {RequestType} requestType requestType
@@ -26,16 +38,18 @@ export const RequestType = {
  */
 
 export const sendRequest = (methodType, requestType, body) => {
-  const { read } = database();
+  const { read, create } = database();
   switch (methodType) {
     case MethodType.GET:
       switch (requestType) {
         case RequestType.LOGIN:
-          const response = read(body, "account");
-          if (response === "invalid_key" || response === "invalid_account") {
-            const res = { error: response };
-            return res;
-          } else return response;
+          const response = read(body, QUERIES.ACCOUNT);
+          if (
+            response === ERROR.INVALID_KEY ||
+            response === ERROR.INVALID_ACCOUNT
+          ) {
+            return serverResponse(response, null);
+          } else return serverResponse(RESPONSE.SIGNIN_SUCCESSFUL, response);
         default:
       }
       break;
@@ -43,6 +57,16 @@ export const sendRequest = (methodType, requestType, body) => {
     case MethodType.POST:
       switch (requestType) {
         case RequestType.SIGNUP:
+          const response = create(body, QUERIES.ACCOUNT);
+          if (
+            response === ERROR.PREEXISTING_ACCOUNT ||
+            response === ERROR.DATABASE_FULL
+          ) {
+            return serverResponse(response,null);
+          } else if (response === ACTION.POST_SUCCESSFUL) {
+            return read(body, QUERIES.ACCOUNT);
+          }
+          return serverResponse(RESPONSE.SIGNUP_SUCCESSFUL, newAccount(body)) ;
           break;
         default:
       }
