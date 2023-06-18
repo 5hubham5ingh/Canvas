@@ -63,7 +63,7 @@ function reducer(state = initialState, action) {
     default:
       return {
         message: "",
-        severity: "",
+        severity: "none",
         visibility: false,
       };
   }

@@ -8,7 +8,7 @@ import { useModal } from "./modal/Modal";
 import { ACTION as modalAction } from "./modal/Action";
 import { animateScroll } from "react-scroll";
 
-export default function Appbar({ aboutRef }) {
+export default function Appbar() {
   const navigate = useNavigate();
   const { dispatchModal } = useModal();
   const handleClick = (button) => {

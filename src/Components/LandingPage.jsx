@@ -8,7 +8,7 @@ function LandingPage() {
 
   return (
     <div>
-      <Appbar aboutRef={aboutRef} />
+      <Appbar  />
       <Background>
         <About ref={aboutRef} />
       </Background>
