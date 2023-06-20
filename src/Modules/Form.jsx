@@ -2,20 +2,49 @@ import { logInValidationSchema } from "../utils/schema";
 import { useFormik } from "formik";
 import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { useSnackBar } from "./snackbar/SnackBar";
-import { ACTION } from "./snackbar/Actions";
+import { ACTION as SNACKBAR_ACTIONS } from "./snackbar/Actions";
 import { sendRequest, RequestType, MethodType } from "../Server/server";
 import { ERROR as SERVER_ERRORS } from "./../Server/error";
+import { RESPONSE as SERVER_RESPONSE } from "../Server/responce";
 import { useUser } from "./User/userContext";
 import { ACTION as USER_ACTIONS } from "./User/action";
+import { useModal } from "./modal/Modal";
+import { ACTION as MODAL_ACTION } from "./modal/Action";
 
 function Form(props) {
   const snackbar = useSnackBar();
-  const { user, dispatch } = useUser();
+  const { user, setUser } = useUser();
+  const modal = useModal();
   const logIn = (values) => {
-    dispatch({ type: USER_ACTIONS.SIGNIN, payload: values });
+    //Send logIn request
+    const response = sendRequest(MethodType.GET, RequestType.LOGIN, values);
+
+    if (response.status !== undefined) {
+      //LogIn unsuccessful
+      if (response.status === SERVER_ERRORS.INVALID_KEY)
+        snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_KEY);
+      else if (response.status === SERVER_ERRORS.INVALID_ACCOUNT)
+        snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_ACCOUNT);
+    } //Login Successful
+    else {
+      snackbar.dispatch(SNACKBAR_ACTIONS.LOGGED_IN);
+      setUser(response.data);
+      modal.dispatch(MODAL_ACTION.CLOSE);
+    }
   };
   const signUp = (values) => {
-    dispatch({ type: USER_ACTIONS.SIGNUP, payload: values });
+    const response = sendRequest(MethodType.POST, RequestType.SIGNUP, values);
+    //CHECK IF SIGNUP FAILED
+    if (response.status === SERVER_ERRORS.PREEXISTING_ACCOUNT)
+      snackbar.dispatch(SNACKBAR_ACTIONS.ACCOUNT_ALREADY_EXITS);
+    else if (response.status === SERVER_ERRORS.DATABASE_FULL)
+      snackbar.dispatch(SNACKBAR_ACTIONS.STORAGE_FULL);
+    else if (response.status === SERVER_RESPONSE.SIGNUP_SUCCESSFUL) {
+      //Sigup Successful
+      snackbar.dispatch(SNACKBAR_ACTIONS.SIGNED_UP);
+      setUser(response.data);
+      modal.dispatch(MODAL_ACTION.CLOSE);
+    }
   };
   const submit = (values) => {
     props.type === "signUp" ? signUp(values) : logIn(values);

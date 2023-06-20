@@ -2,6 +2,7 @@ import { Box, Modal as MUIModal } from "@mui/material";
 import SignUpNLogInTab from "../SignUpNLogInTabs";
 import { useReducer, createContext, useContext } from "react";
 import { ACTION } from "./Action";
+import SaveNewFile from "./SaveNewFile/SaveNewFile";
 
 const initialState = {
   what: "",
@@ -15,8 +16,10 @@ function reducer(state = initialState, action) {
       return { what: "logIn", open: true };
     case ACTION.OPEN_SIGNUP:
       return { what: "signUp", open: true };
-    case "close":
+    case ACTION.CLOSE:
       return initialState;
+    case ACTION.SAVE_NEW_FILE:
+      return { what: "saveNewFile", open: true, payload: action.payload };
     default:
   }
 }
@@ -73,6 +76,8 @@ export function Modal() {
           <SignUpNLogInTab tab={state.what} />
         ) : state.what === "logIn" ? (
           <SignUpNLogInTab tab={state.what} />
+        ) : state.what === "saveNewfile" ? (
+          <SaveNewFile file={state?.payload} />
         ) : (
           ""
         )}

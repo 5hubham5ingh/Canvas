@@ -6,4 +6,6 @@ export const ACTION = {
   INVALID_ACCOUNT: "invalid-account",
   ACCOUNT_ALREADY_EXITS: "account-already-exists",
   SIGNED_UP: "signed-up",
+  PREEXISTING_FILE: "preexistingFile",
+  FILE_SAVED: "fileSaved",
 };

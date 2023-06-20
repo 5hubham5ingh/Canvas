@@ -7,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 import { useModal } from "./modal/Modal";
 import { ACTION as modalAction } from "./modal/Action";
 import { animateScroll } from "react-scroll";
+import { useUser } from "./User/userContext";
 
 export default function Appbar() {
   const navigate = useNavigate();
   const { dispatchModal } = useModal();
+  const { user } = useUser();
+
   const handleClick = (button) => {
     switch (button.target.name) {
       case "designer":
@@ -51,34 +54,42 @@ export default function Appbar() {
         >
           Canvas
         </Typography>
-        <Button
-          name="designer"
-          onClick={handleClick}
-          sx={{ color: "aqua", marginRight: "50px" }}
-        >
-          Designer
-        </Button>
-        <Button
-          name="viewer"
-          onClick={handleClick}
-          sx={{ color: "aqua", marginRight: "50px" }}
-        >
-          Viewer
-        </Button>
-        <Button
-          name="logIn"
-          onClick={handleClick}
-          sx={{ color: "aqua", marginRight: "50px" }}
-        >
-          Login
-        </Button>
-        <Button
-          name="signUp"
-          onClick={handleClick}
-          sx={{ color: "aqua", marginRight: "50px" }}
-        >
-          SignUp
-        </Button>
+        {user !== undefined ? (
+          <>
+            <Button
+              name="designer"
+              onClick={handleClick}
+              sx={{ color: "aqua", marginRight: "50px" }}
+            >
+              Designer
+            </Button>
+            <Button
+              name="viewer"
+              onClick={handleClick}
+              sx={{ color: "aqua", marginRight: "50px" }}
+            >
+              Viewer
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              name="logIn"
+              onClick={handleClick}
+              sx={{ color: "aqua", marginRight: "50px" }}
+            >
+              Login
+            </Button>
+            <Button
+              name="signUp"
+              onClick={handleClick}
+              sx={{ color: "aqua", marginRight: "50px" }}
+            >
+              SignUp
+            </Button>
+          </>
+        )}
+
         <Button name="about" onClick={handleClick} sx={{ color: "aqua" }}>
           About
         </Button>
