@@ -3,6 +3,7 @@ import { QUERIES } from "./Database/queries";
 
 import { ERROR } from "./error";
 import { RESPONSE } from "./responce";
+import { setData, getData } from "./Database/useDatabase";
 
 let account = undefined;
 
@@ -42,6 +43,12 @@ export const sendRequest = (methodType, requestType, body) => {
   switch (methodType) {
     case MethodType.GET:
       switch (requestType) {
+        case RequestType.LOGIN:
+          const data = getData(body.accountName);
+          if (data === null) return serverResponse(ERROR.INVALID_ACCOUNT, null);
+          else if (data.key === body.key)
+            return serverResponse(RESPONSE.SIGNIN_SUCCESSFUL, data);
+          else return serverResponse(ERROR.INVALID_KEY, null);
         default:
       }
       break;
@@ -53,7 +60,7 @@ export const sendRequest = (methodType, requestType, body) => {
           //Check if account already exists
           if (localStorage.getItem(body.accountName) === null) {
             account = newAccount(body);
-            localStorage.setItem(body.accountName, account);
+            setData(body.accountName, account);
 
             return serverResponse(RESPONSE.SIGNUP_SUCCESSFUL, account);
           }
@@ -64,7 +71,8 @@ export const sendRequest = (methodType, requestType, body) => {
           const file = account.files.find((file) => file.id === body.id);
           if (file === undefined) {
             account.files.push(file);
-            localStorage.setItem(account.accountName, account);
+            setData(account.accountName, account);
+
             return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
           } else return serverResponse(ERROR.PREEXISTING_FILE, null);
         default:
@@ -80,7 +88,8 @@ export const sendRequest = (methodType, requestType, body) => {
             } else return false;
           });
           if (updatedAccount === null) account.files.push(body);
-          localStorage.setItem(account.accountName, account);
+          setData(account.accountName, account);
+
           return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
 
         case RequestType.CREATE_FILE:

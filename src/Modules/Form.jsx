@@ -19,19 +19,16 @@ function Form(props) {
     //Send logIn request
     const response = sendRequest(MethodType.GET, RequestType.LOGIN, values);
 
-    if (response.status !== undefined) {
-      //LogIn unsuccessful
-      if (response.status === SERVER_ERRORS.INVALID_KEY)
-        snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_KEY);
-      else if (response.status === SERVER_ERRORS.INVALID_ACCOUNT)
-        snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_ACCOUNT);
-    } //Login Successful
-    else {
+    if (response.status === SERVER_RESPONSE.SIGNIN_SUCCESSFUL) {
       snackbar.dispatch(SNACKBAR_ACTIONS.LOGGED_IN);
       setUser(response.data);
-      modal.dispatch(MODAL_ACTION.CLOSE);
-    }
+      modal.dispatchModal({ type: MODAL_ACTION.CLOSE });
+    } else if (response.status === SERVER_ERRORS.INVALID_ACCOUNT)
+      snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_ACCOUNT);
+    else if (response.status === SERVER_ERRORS.INVALID_KEY)
+      snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_KEY);
   };
+
   const signUp = (values) => {
     const response = sendRequest(MethodType.POST, RequestType.SIGNUP, values);
     //CHECK IF SIGNUP FAILED
@@ -43,7 +40,7 @@ function Form(props) {
       //Sigup Successful
       snackbar.dispatch(SNACKBAR_ACTIONS.SIGNED_UP);
       setUser(response.data);
-      modal.dispatch(MODAL_ACTION.CLOSE);
+      modal.dispatchModal({ type: MODAL_ACTION.CLOSE });
     }
   };
   const submit = (values) => {

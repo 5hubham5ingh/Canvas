@@ -12,7 +12,7 @@ import { useUser } from "./User/userContext";
 export default function Appbar() {
   const navigate = useNavigate();
   const { dispatchModal } = useModal();
-  const { user } = useUser();
+  const { user, setUser } = useUser();
 
   const handleClick = (button) => {
     switch (button.target.name) {
@@ -33,6 +33,10 @@ export default function Appbar() {
       case "about":
         animateScroll.scrollToBottom();
         break;
+      case "logout":
+        setUser(undefined);
+        break;
+
       default:
     }
   };
@@ -69,6 +73,13 @@ export default function Appbar() {
               sx={{ color: "aqua", marginRight: "50px" }}
             >
               Viewer
+            </Button>
+            <Button
+              name="logout"
+              onClick={handleClick}
+              sx={{ color: "aqua", marginRight: "50px" }}
+            >
+              Logout
             </Button>
           </>
         ) : (

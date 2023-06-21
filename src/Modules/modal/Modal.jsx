@@ -63,6 +63,7 @@ export function Modal() {
   const handleClose = () => {
     dispatchModal({ type: "close" });
   };
+  debugger;
 
   return (
     <MUIModal

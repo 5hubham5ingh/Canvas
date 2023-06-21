@@ -15,5 +15,7 @@ export function setData(key, value) {
 }
 
 export function getData(key) {
-  return JSON.parse(localStorage.getItem(key));
+  const data = localStorage.getItem(key);
+  if (data === null) return null;
+  else return JSON.parse(data);
 }
