@@ -1,11 +1,11 @@
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ReportDesigner from "./Components/ReportDesigner";
-import ReportViewer from "./Components/ReportViewer";
-import RequireLogIn from "./Components/RequireLogIn";
-import LandingPage from "./Components/LandingPage";
-import SnackBar from "./Components/snackbar/SnackBar";
-import { Modal } from "./Components/modal/Modal";
+import ReportDesigner from "./Modules/ReportDesigner";
+import ReportViewer from "./Modules/ReportViewer";
+import RequireLogIn from "./Modules/RequireLogIn";
+import LandingPage from "./Modules/LandingPage";
+import SnackBar from "./Modules/snackbar/SnackBar";
+import { Modal } from "./Modules/modal/Modal";
 
 export default function App() {
   return (

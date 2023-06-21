@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { SnackBarContextProvider } from "./Components/snackbar/SnackBar";
-import { ModalContextProvider } from "./Components/modal/Modal";
-import { UserContextProvider } from "./Components/User/userContext";
+import { SnackBarContextProvider } from "./Modules/snackbar/SnackBar";
+import { ModalContextProvider } from "./Modules/modal/Modal";
+import { UserContextProvider } from "./Modules/User/userContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
