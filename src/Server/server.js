@@ -61,21 +61,37 @@ export const sendRequest = (methodType, requestType, body) => {
           else return serverResponse(ERROR.PREEXISTING_ACCOUNT, null);
 
         case RequestType.SAVE_FILE:
-          const file = account.files.find((file) => {
-            if (file === body) return true;
-            else return false;
-          });
+          const file = account.files.find((file) => file.id === body.id);
           if (file === undefined) {
             account.files.push(file);
             localStorage.setItem(account.accountName, account);
+            return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
           } else return serverResponse(ERROR.PREEXISTING_FILE, null);
-          break;
         default:
       }
       break;
     case MethodType.PUT:
       switch (requestType) {
+        case RequestType.SAVE_FILE:
+          const updatedAccount = account.files.find((file) => {
+            if (file.id === body.id) {
+              file = body;
+              return true;
+            } else return false;
+          });
+          if (updatedAccount === null) account.files.push(body);
+          localStorage.setItem(account.accountName, account);
+          return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
+
         case RequestType.CREATE_FILE:
+          const file = account.files.find((file) => {
+            if (file.id === body.id) {
+              file = body;
+              return true;
+            } else return false;
+          });
+          if (updatedAccount !== null)
+            return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
           break;
         default:
       }
