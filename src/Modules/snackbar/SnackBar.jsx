@@ -14,6 +14,7 @@ const snackbar = createContext(null);
 //SnackBar context provider
 export function SnackBarContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  debugger
   return (
     <snackbar.Provider value={{ state, dispatch }}>
       {children}
@@ -60,6 +61,18 @@ function reducer(state = initialState, action) {
         severity: "warning",
         visibility: true,
       };
+      case ACTION.SIGNED_UP:
+        return{
+          message: "Sign Up Successfull!",
+          severity:"success",
+          visibility:true
+        }
+        case ACTION.FILE_SAVED:
+          return{
+            message: "File Saved.",
+            severity: "info",
+            visibility: true
+          }
     default:
       return {
         message: "",

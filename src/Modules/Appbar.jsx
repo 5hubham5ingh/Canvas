@@ -8,9 +8,12 @@ import { useModal } from "./modal/Modal";
 import { ACTION as modalAction } from "./modal/Action";
 import { animateScroll } from "react-scroll";
 import { useUser } from "./User/userContext";
+import { useSnackBar } from "./snackbar/SnackBar";
+import { ACTION as snackbarAction} from "./snackbar/Actions";
 
 export default function Appbar() {
   const navigate = useNavigate();
+  const snackbar = useSnackBar();
   const { dispatchModal } = useModal();
   const { user, setUser } = useUser();
 
@@ -35,6 +38,7 @@ export default function Appbar() {
         break;
       case "logout":
         setUser(undefined);
+        snackbar.dispatch(snackbarAction.LOGGED_OUT);
         break;
 
       default:

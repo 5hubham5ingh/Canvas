@@ -37,6 +37,7 @@ function Form(props) {
     else if (response.status === SERVER_ERRORS.DATABASE_FULL)
       snackbar.dispatch(SNACKBAR_ACTIONS.STORAGE_FULL);
     else if (response.status === SERVER_RESPONSE.SIGNUP_SUCCESSFUL) {
+      debugger
       //Sigup Successful
       snackbar.dispatch(SNACKBAR_ACTIONS.SIGNED_UP);
       setUser(response.data);

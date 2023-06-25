@@ -6,7 +6,7 @@ import { RESPONSE } from "./responce";
 import { setData, getData } from "./Database/useDatabase";
 
 let account = undefined;
-
+console.log("account ", account);
 export const MethodType = {
   GET: "get",
   PUT: "put",
@@ -46,9 +46,10 @@ export const sendRequest = (methodType, requestType, body) => {
         case RequestType.LOGIN:
           const data = getData(body.accountName);
           if (data === null) return serverResponse(ERROR.INVALID_ACCOUNT, null);
-          else if (data.key === body.key)
+          else if (data.key === body.key) {
+            account = data;
             return serverResponse(RESPONSE.SIGNIN_SUCCESSFUL, data);
-          else return serverResponse(ERROR.INVALID_KEY, null);
+          } else return serverResponse(ERROR.INVALID_KEY, null);
         default:
       }
       break;
@@ -68,9 +69,16 @@ export const sendRequest = (methodType, requestType, body) => {
           else return serverResponse(ERROR.PREEXISTING_ACCOUNT, null);
 
         case RequestType.SAVE_FILE:
-          const file = account.files.find((file) => file.id === body.id);
+          debugger;
+          //check if the file already exists
+          const file = account.files.find((file) => file?.id === body?.id);
+
+          //if the file does not exits then save it
           if (file === undefined) {
-            account.files.push(file);
+            //update the account
+            account.files.push(body);
+
+            //updata the account data in db
             setData(account.accountName, account);
 
             return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
@@ -81,26 +89,31 @@ export const sendRequest = (methodType, requestType, body) => {
     case MethodType.PUT:
       switch (requestType) {
         case RequestType.SAVE_FILE:
-          const updatedAccount = account.files.find((file) => {
-            if (file.id === body.id) {
-              file = body;
-              return true;
-            } else return false;
-          });
-          if (updatedAccount === null) account.files.push(body);
+          //find the file then index of the file, remove the old file, push the new file on the files stack
+          const file = account.files.find((file) => file.id === body.id);
+          const index = account.files.indexOf(file);
+          account.files.splice(index, 1);
+          account.files.push(body);
           setData(account.accountName, account);
 
           return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
+        // const updatedFile = account.files.find((file) => {
+        //   if (file.id === body.id) {
+        //     file = body;
+        //     return true;
+        //   } else return false;
+        // });
+        // if (updatedFile === null) account.files.push(body);
 
         case RequestType.CREATE_FILE:
-          const file = account.files.find((file) => {
-            if (file.id === body.id) {
-              file = body;
-              return true;
-            } else return false;
-          });
-          if (updatedAccount !== null)
-            return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
+          // const file = account.files.find((file) => {
+          //   if (file.id === body.id) {
+          //     file = body;
+          //     return true;
+          //   } else return false;
+          // });
+          // if (updatedFile !== null)
+          //   return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
           break;
         default:
       }
