@@ -1,4 +1,11 @@
-import { List, ListItem, ListItemText, Stack } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+} from "@mui/material";
 import { useUser } from "../../User/userContext";
 
 export default function OpenFiles() {
@@ -18,16 +25,18 @@ export default function OpenFiles() {
         ))} */}
         <List>
           {files.map((file) => (
-            <ListItem
-              button
-              component="a"
-              href={file.id}
-              key={file.id}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ListItemText primary={file.displayName} />
-            </ListItem>
+            <List>
+              {files.map((file) => (
+                <ListItemButton
+                  key={file.id}
+                  component="a"
+                  onClick={handleClick}
+                >
+                  <ListItemIcon>📜</ListItemIcon>
+                  <ListItemText primary={file.displayName} />
+                </ListItemButton>
+              ))}
+            </List>
           ))}
         </List>
       </Stack>
