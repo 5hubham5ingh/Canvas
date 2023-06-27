@@ -19,7 +19,7 @@ function ReportDesigner() {
   const { asyncDispatchModal, dispatchModal } = useModal();
   const modal = useModal();
   const navigate = useNavigate();
-  const {user} = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     designerRef.current.setReport(newFile);
@@ -28,21 +28,24 @@ function ReportDesigner() {
   //open new report
   const openReport = () => {
     //Open a modal with all the saved file in it
-    dispatchModal({type: MODAL_ACTION.OPEN_FILES, payload: designerRef})
+    dispatchModal({ type: MODAL_ACTION.OPEN_FILES, payload: designerRef });
   };
 
   //Save the new report
   const onSave = async (newReport) => {
     console.log(JSON.stringify(newReport));
-    
+
     //Check if the report being saved is a new report or an old one
-    if (newReport.displayName === "NewFile")
+    if (newReport.displayName === "NewFile") {
       //if it's a new report
-      {//set unique report id
+      //set unique report id
       newReport.id = user.files.length.toString();
-      debugger
-      await asyncDispatchModal({ type: MODAL_ACTION.SAVE_NEW_FILE, payload: newReport });}
-    else {
+      debugger;
+      await asyncDispatchModal({
+        type: MODAL_ACTION.SAVE_NEW_FILE,
+        payload: newReport,
+      });
+    } else {
       // else if it's an old report
       const response = sendRequest(
         MethodType.PUT,
@@ -53,12 +56,15 @@ function ReportDesigner() {
       if (response.status === RESPONSE.FILE_SAVED_SUCCESSFUL)
         snackbar.dispatch(ACTION.FILE_SAVED);
 
-        //set the new file from db
-        newReport = response.data.files.find((file)=> file.id === newReport.id);
+      //set the new file from db
+      newReport = response.data.files.find((file) => file.id === newReport.id);
     }
 
     newReport = user.files[user.files.length - 1];
-    return Promise.resolve({ id: newReport.id, displayName: newReport.displayName });
+    return Promise.resolve({
+      id: newReport.id,
+      displayName: newReport.displayName,
+    });
   };
 
   //to view the report in the viewer

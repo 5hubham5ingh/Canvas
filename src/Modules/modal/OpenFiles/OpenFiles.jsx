@@ -10,16 +10,17 @@ import {
 } from "@mui/material";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { useUser } from "../../User/userContext";
-export default function OpenFiles({ref}) {
-  debugger;
+import { useModal } from "../Modal";
+import { ACTION } from "../Action";
+export default function OpenFiles({ open }) {
   const { user } = useUser();
+  const { dispatchModal } = useModal();
   const files = user.files;
   const openFile = (fileId) => {
- 
-    const file = files.find((file)=> file.id === fileId)
-    
+    const file = files.find((file) => file.id === fileId);
 
-    ref.current.setFile(file);
+    open.current.setReport(file);
+    dispatchModal({ type: ACTION.CLOSE });
   };
   return (
     <>
@@ -31,7 +32,12 @@ export default function OpenFiles({ref}) {
 
         <List>
           {files.map((file) => (
-            <ListItemButton key={file.id} name={file.id} component="a" onClick={()=>openFile(file.id)}>
+            <ListItemButton
+              key={file.id}
+              name={file.id}
+              component="a"
+              onClick={() => openFile(file.id)}
+            >
               <ListItemIcon>
                 <InsertDriveFileIcon />
               </ListItemIcon>

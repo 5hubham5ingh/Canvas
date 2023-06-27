@@ -21,10 +21,10 @@ function reducer(state = initialState, action) {
       return initialState;
     case ACTION.SAVE_NEW_FILE:
       return { what: "saveNewFile", open: true, payload: action.payload };
-      case ACTION.OPEN_FILES:
-        return {what: ACTION.OPEN_FILES, open: true, payload: action.payload}
+    case ACTION.OPEN_FILES:
+      return { what: ACTION.OPEN_FILES, open: true, payload: action.payload };
     default:
-      return state
+      return state;
   }
 }
 
@@ -34,10 +34,12 @@ const modalContext = createContext();
 // Modal Context provider
 export function ModalContextProvider({ children }) {
   const [state, dispatchModal] = useReducer(reducer, initialState);
-  const asyncDispatchModal = async (obj)=> {dispatchModal(obj)};
+  const asyncDispatchModal = async (obj) => {
+    dispatchModal(obj);
+  };
 
   return (
-    <modalContext.Provider value={{ state, dispatchModal,asyncDispatchModal }}>
+    <modalContext.Provider value={{ state, dispatchModal, asyncDispatchModal }}>
       {children}
     </modalContext.Provider>
   );
@@ -84,7 +86,9 @@ export function Modal() {
           <SignUpNLogInTab tab={state.what} />
         ) : state.what === "saveNewFile" ? (
           <SaveNewFile file={state?.payload} />
-        ) : state.what === ACTION.OPEN_FILES ? (<OpenFiles ref={state.payload}/>): (
+        ) : state.what === ACTION.OPEN_FILES ? (
+          <OpenFiles open={state.payload} />
+        ) : (
           ""
         )}
       </Box>
