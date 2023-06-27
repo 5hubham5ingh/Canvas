@@ -1,7 +1,6 @@
 import {
   Divider,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -25,9 +24,7 @@ export default function OpenFiles({ open }) {
   return (
     <>
       <Stack direction="column">
-        <Typography pl={"1em"} heading>
-          Open file
-        </Typography>
+        <Typography pl={"1em"}>Open file</Typography>
         <Divider color="#1DA1F2" />
 
         <List>

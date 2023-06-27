@@ -10,8 +10,15 @@ import { useReactToPrint } from "react-to-print";
 import report from "./../utils/Report.json";
 
 export default function ReportViewer() {
-  const viewerRef = useRef();
-  const Report = report[0];
+  const [Report, setReport] = useState(report[0]);
+
+  useEffect(() => {
+    let url = new URLSearchParams(window.location.search);
+    let fileString = url.get("file");
+    if (fileString !== null) setReport(JSON.parse(fileString));
+  });
+  debugger;
+  // const Report = report[0];
   const pdfExportSettings = {
     title: "Invoice",
     author: "Gstcafe",
@@ -85,7 +92,17 @@ export default function ReportViewer() {
   });
 
   const enableFullScreen = () => {
-    viewerRef.current.requestFullscreen();
+    if (invoiceRef.current) {
+      if (invoiceRef.current.requestFullscreen) {
+        invoiceRef.current.requestFullscreen();
+      } else if (invoiceRef.current.mozRequestFullScreen) {
+        invoiceRef.current.mozRequestFullScreen();
+      } else if (invoiceRef.current.webkitRequestFullscreen) {
+        invoiceRef.current.webkitRequestFullscreen();
+      } else if (invoiceRef.current.msRequestFullscreen) {
+        invoiceRef.current.msRequestFullscreen();
+      }
+    }
   };
 
   return (
@@ -95,21 +112,37 @@ export default function ReportViewer() {
         print={print}
         exportPdf={ExportPdf}
       />
+
       <Box
         component="main"
-        ref={viewerRef}
-        sx={{ flexGrow: 1, p: 3, backgroundColor: "white" }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          backgroundColor: "white",
+        }}
       >
         {result?.data !== undefined ? (
           <PDFExport
-            title="Invoice"
-            author="GSTCafe"
+            title={Report.displayName}
+            author="arjs-canvas"
             paperSize="A4"
             margin="0"
             scale={0.75}
             ref={exportRef}
           >
-            <div ref={invoiceRef}>{parse(result.data.toString())}</div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+
+                width: "100%",
+                height: "100%",
+                overflow: "auto",
+              }}
+              ref={invoiceRef}
+            >
+              {parse(result.data.toString())}
+            </div>
           </PDFExport>
         ) : (
           "Report doesn't exits."

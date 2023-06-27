@@ -1,7 +1,6 @@
 import { Designer } from "@grapecity/activereports-react";
 import { useEffect, useRef } from "react";
 import "./Styles/Designer.css";
-import report from "../utils/Report.json";
 import { MethodType, RequestType, sendRequest } from "../Server/server";
 import { useModal } from "../Modules/modal/Modal";
 import { ACTION as MODAL_ACTION } from "../Modules/modal/Action";
@@ -17,7 +16,7 @@ function ReportDesigner() {
   const designerRef = useRef();
   const snackbar = useSnackBar();
   const { asyncDispatchModal, dispatchModal } = useModal();
-  const modal = useModal();
+
   const navigate = useNavigate();
   const { user } = useUser();
 
@@ -69,14 +68,14 @@ function ReportDesigner() {
 
   //to view the report in the viewer
   const onReportPreview = (modifiedReport) => {
-    navigate(`/Viewer?id=${modifiedReport}`);
+    const modifiedFile = JSON.stringify(modifiedReport);
+    navigate(`/Viewer?file=${modifiedFile}`);
   };
   return (
     <div id="designer-host">
       <Designer
         // dataSources={dataSources}
         onSave={onSave}
-        onSaveAs={onSave}
         ref={designerRef}
         onRender={onReportPreview}
         onOpen={openReport}
