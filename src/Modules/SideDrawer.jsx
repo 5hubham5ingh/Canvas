@@ -68,7 +68,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-function SideDrawer({ enableFullScreen, print, exportPdf }) {
+function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -90,6 +90,7 @@ function SideDrawer({ enableFullScreen, print, exportPdf }) {
         exportPdf();
         break;
       case "Download Html":
+        exportHTML();
         break;
       case "Full Screen":
         enableFullScreen();

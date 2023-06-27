@@ -105,12 +105,32 @@ export default function ReportViewer() {
     }
   };
 
+  function exportHtml() {
+    const divElement = document.getElementById("file"); // Replace "myDiv" with the ID of your <div> element
+    const divContent = divElement.outerHTML;
+
+    const blob = new Blob([divContent], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "div_content.html"; // Specify the desired filename here
+    a.style.display = "none";
+
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <Box sx={{ display: "flex" }}>
       <SideDrawer
         enableFullScreen={enableFullScreen}
         print={print}
         exportPdf={ExportPdf}
+        exportHTML={exportHtml}
       />
 
       <Box
@@ -131,6 +151,7 @@ export default function ReportViewer() {
             ref={exportRef}
           >
             <div
+              id="file"
               style={{
                 display: "flex",
                 justifyContent: "center",
