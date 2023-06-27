@@ -22,7 +22,7 @@ function reducer(state = initialState, action) {
     case ACTION.SAVE_NEW_FILE:
       return { what: "saveNewFile", open: true, payload: action.payload };
       case ACTION.OPEN_FILES:
-        return {what: ACTION.OPEN_FILES, open: true}
+        return {what: ACTION.OPEN_FILES, open: true, payload: action.payload}
     default:
       return state
   }
@@ -84,7 +84,7 @@ export function Modal() {
           <SignUpNLogInTab tab={state.what} />
         ) : state.what === "saveNewFile" ? (
           <SaveNewFile file={state?.payload} />
-        ) : state.what === ACTION.OPEN_FILES ? (<OpenFiles/>): (
+        ) : state.what === ACTION.OPEN_FILES ? (<OpenFiles ref={state.payload}/>): (
           ""
         )}
       </Box>
