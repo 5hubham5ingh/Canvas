@@ -29,7 +29,10 @@ function ReportDesigner() {
   //open new report
   const openReport = () => {
     //Open a modal with all the saved file in it
-    dispatchModal({ type: MODAL_ACTION.OPEN_FILES, payload: designerRef });
+    dispatchModal({
+      type: MODAL_ACTION.OPEN_FILES_IN_DESIGNER,
+      payload: designerRef,
+    });
   };
 
   //Save the new report

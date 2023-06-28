@@ -25,6 +25,8 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
+import { useModal } from "./modal/Modal";
+import { ACTION } from "./modal/Action";
 
 const drawerWidth = 240;
 
@@ -79,6 +81,7 @@ function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
   const [open, setOpen] = React.useState(false);
   const [accordion, setAccordion] = useState(false);
   const navigate = useNavigate();
+  const { dispatchModal } = useModal();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -94,6 +97,7 @@ function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
   const handleClick = (e) => {
     switch (e.currentTarget.getAttribute("name")) {
       case "Open":
+        dispatchModal({ type: ACTION.OPEN_FILES_IN_VIEWER });
         break;
       case "Print":
         print();
@@ -252,11 +256,11 @@ function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
                 color: "#000066",
                 padding: 0,
                 margin: 0,
-                boxShadow: "none", // Remove the shadow
-                border: "none", // Remove the border
-                transition: "background-color 0.08s ", // Set transition property and duration
+                boxShadow: "none",
+                border: "none",
+                transition: "background-color 0.08s ",
                 "&:hover": {
-                  backgroundColor: "#A9BCD5", // Change background color on hover
+                  backgroundColor: "#A9BCD5",
                 },
               }}
             >
