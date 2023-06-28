@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -18,6 +18,13 @@ import InfoIcon from "@mui/icons-material/Info";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import BrushIcon from "@mui/icons-material/Brush";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useNavigate } from "react-router-dom";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Typography,
+} from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -70,6 +77,8 @@ const Drawer = styled(MuiDrawer, {
 
 function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
   const [open, setOpen] = React.useState(false);
+  const [accordion, setAccordion] = useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -77,7 +86,10 @@ function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setAccordion(false);
   };
+
+  const handleAccordionChange = () => setAccordion((prev) => !prev);
 
   const handleClick = (e) => {
     switch (e.currentTarget.getAttribute("name")) {
@@ -96,8 +108,10 @@ function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
         enableFullScreen();
         break;
       case "Designer":
+        navigate("/Designer");
         break;
       case "Exit to Home":
+        navigate("/");
         break;
       case "Info":
         break;
@@ -172,43 +186,103 @@ function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
       </List>
       <Divider color="#000066" />
       <List sx={{ position: "absolute", bottom: "5px" }}>
-        {["Full Screen", "Designer", "Exit to Home", "Info"].map(
-          (text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                name={text}
+        {["Full Screen", "Designer", "Exit to Home"].map((text, index) => (
+          <ListItem key={text} disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              name={text}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+              onClick={handleClick}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
+                  minWidth: 0,
+                  color: "#000066",
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
                 }}
-                onClick={handleClick}
               >
-                <ListItemIcon
+                {[
+                  <FullscreenIcon key={text} />,
+                  <BrushIcon key={text} />,
+                  <ExitToAppIcon key={text} />,
+                ].map(
+                  // eslint-disable-next-line
+                  (element, i) => {
+                    if (index === i) return element;
+                  }
+                )}
+              </ListItemIcon>
+              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+
+        <ListItem key={"Info"} disablePadding sx={{ display: "block" }}>
+          <ListItemButton
+            name={"Info"}
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? "initial" : "center",
+              px: 2.5,
+            }}
+            onClick={handleClick}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                color: "#000066",
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
+                display: open ? "none" : "",
+              }}
+            >
+              <InfoIcon key={"Info"} />
+            </ListItemIcon>
+
+            <Accordion
+              expanded={accordion}
+              onChange={handleAccordionChange}
+              sx={{
+                opacity: open ? 1 : 0,
+                backgroundColor: "lightsteelblue",
+                color: "#000066",
+                padding: 0,
+                margin: 0,
+                boxShadow: "none", // Remove the shadow
+                border: "none", // Remove the border
+                transition: "background-color 0.08s ", // Set transition property and duration
+                "&:hover": {
+                  backgroundColor: "#A9BCD5", // Change background color on hover
+                },
+              }}
+            >
+              <AccordionSummary
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                sx={{ padding: 0, margin: 0 }}
+              >
+                <InfoIcon key={"Info"} />
+                <Typography sx={{ pl: "1.5em" }}>Info</Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ padding: "0.5em" }}>
+                <Typography
                   sx={{
-                    minWidth: 0,
-                    color: "#000066",
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    width: "12em",
+                    whiteSpace: "normal",
+                    overflowWrap: "break-word",
                   }}
                 >
-                  {[
-                    <FullscreenIcon key={text} />,
-                    <BrushIcon key={text} />,
-                    <ExitToAppIcon key={text} />,
-                    <InfoIcon key={text} />,
-                  ].map(
-                    // eslint-disable-next-line
-                    (element, i) => {
-                      if (index === i) return element;
-                    }
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          )
-        )}
+                  This is the viewer where files created with the designer can
+                  be viewed and downloaded in various preferred file formats.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </ListItemButton>
+        </ListItem>
       </List>
     </Drawer>
   );

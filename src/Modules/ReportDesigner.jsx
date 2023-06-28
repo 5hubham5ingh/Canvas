@@ -21,7 +21,9 @@ function ReportDesigner() {
   const { user } = useUser();
 
   useEffect(() => {
-    designerRef.current.setReport(newFile);
+    let workingFile = sessionStorage.getItem("NewFile");
+    if (workingFile === null) designerRef.current.setReport(newFile);
+    else designerRef.current.setReport(JSON.parse(workingFile));
   }, []);
 
   //open new report
@@ -69,7 +71,12 @@ function ReportDesigner() {
   //to view the report in the viewer
   const onReportPreview = (modifiedReport) => {
     const modifiedFile = JSON.stringify(modifiedReport);
-    navigate(`/Viewer?file=${modifiedFile}`);
+    try {
+      sessionStorage.setItem(modifiedReport.id, modifiedFile);
+      navigate(`/Viewer?id=${modifiedReport.id}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <div id="designer-host">

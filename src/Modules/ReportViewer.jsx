@@ -14,9 +14,16 @@ export default function ReportViewer() {
 
   useEffect(() => {
     let url = new URLSearchParams(window.location.search);
-    let fileString = url.get("file");
-    if (fileString !== null) setReport(JSON.parse(fileString));
-  });
+    let fileId = url.get("id");
+    if (fileId !== null) {
+      try {
+        let fileString = sessionStorage.getItem(fileId);
+        setReport(JSON.parse(fileString));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, []);
   debugger;
   // const Report = report[0];
   const pdfExportSettings = {
@@ -73,7 +80,7 @@ export default function ReportViewer() {
 
     //call the function to load the Report received as prop and modify it to remove the watermark
     loadReport();
-  }, []);
+  }, [Report]);
 
   // npm PDFexport
   const ExportPdf = () => {
@@ -106,7 +113,7 @@ export default function ReportViewer() {
   };
 
   function exportHtml() {
-    const divElement = document.getElementById("file"); // Replace "myDiv" with the ID of your <div> element
+    const divElement = document.getElementById("file");
     const divContent = divElement.outerHTML;
 
     const blob = new Blob([divContent], { type: "text/html" });
@@ -114,7 +121,7 @@ export default function ReportViewer() {
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "div_content.html"; // Specify the desired filename here
+    a.download = Report?.displayName;
     a.style.display = "none";
 
     document.body.appendChild(a);
@@ -166,7 +173,7 @@ export default function ReportViewer() {
             </div>
           </PDFExport>
         ) : (
-          "Report doesn't exits."
+          "Loading..."
         )}
       </Box>
     </Box>
