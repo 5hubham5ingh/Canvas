@@ -11,21 +11,15 @@ import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import { useUser } from "../../User/userContext";
 import { useModal } from "../Modal";
 import { ACTION } from "../Action";
-import { useNavigate } from "react-router-dom";
-export default function OpenFiles({ open, For }) {
+export default function OpenFiles({ open }) {
   const { user } = useUser();
   const { dispatchModal } = useModal();
-  const navigate = useNavigate();
   const files = user.files;
   const openFile = (fileId) => {
     const file = files.find((file) => file.id === fileId);
 
-    if (For === "designer") {
-      open.current.setReport(file);
-      dispatchModal({ type: ACTION.CLOSE });
-    } else {
-      navigate(`/Viewer?id=${fileId}`);
-    }
+    open.current.setReport(file);
+    dispatchModal({ type: ACTION.CLOSE });
   };
   return (
     <>
