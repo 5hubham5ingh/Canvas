@@ -1,46 +1,39 @@
 import { logInValidationSchema } from "../utils/schema";
 import { useFormik } from "formik";
-import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useSnackBar } from "./snackbar/SnackBar";
 import { ACTION as SNACKBAR_ACTIONS } from "./snackbar/Actions";
 import { sendRequest, RequestType, MethodType } from "../Server/server";
 import { ERROR as SERVER_ERRORS } from "./../Server/error";
 import { RESPONSE as SERVER_RESPONSE } from "../Server/responce";
 import { useUser } from "./User/userContext";
-import { ACTION as USER_ACTIONS } from "./User/action";
+
 import { useModal } from "./modal/Modal";
 import { ACTION as MODAL_ACTION } from "./modal/Action";
-
-//Helper function to create session
-const createSession = (account) => {
-  //Create session
-  // Get the current time
-  const currentTime = new Date();
-
-  // Calculate the expiration time by adding one hour to the current time
-  const expirationTime = new Date(currentTime.getTime() + 60 * 60 * 1000); // Adding 1 hour in milliseconds
-
-  // Convert the expiration time to the appropriate format (GMT string)
-  const expirationString = expirationTime.toUTCString();
-
-  // Set the cookie with the expires attribute
-  document.cookie = `accountName=${account.accountName}; expires=${expirationString}; path=/`;
-
-  // Store the session token in session storage
-  sessionStorage.setItem(account.accountName, JSON.stringify(account));
-};
+import { useRef } from "react";
+import createSession from "../utils/createSession";
+import CheckBox from "./CheckBox";
 
 function Form(props) {
   const snackbar = useSnackBar();
   const { setUser } = useUser();
   const modal = useModal();
-
+  const checkRef = useRef(false);
+  console.log("Form component", checkRef.current);
   const logIn = (values) => {
     //Send logIn request
     const response = sendRequest(MethodType.GET, RequestType.LOGIN, values);
 
     if (response.status === SERVER_RESPONSE.SIGNIN_SUCCESSFUL) {
-      createSession(response.data);
+      createSession(response.data, checkRef.current);
       snackbar.dispatch(SNACKBAR_ACTIONS.LOGGED_IN);
       setUser(response.data);
       modal.dispatchModal({ type: MODAL_ACTION.CLOSE });
@@ -48,7 +41,6 @@ function Form(props) {
       snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_ACCOUNT);
     else if (response.status === SERVER_ERRORS.INVALID_KEY)
       snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_KEY);
-    debugger;
   };
 
   const signUp = (values) => {
@@ -59,9 +51,7 @@ function Form(props) {
     else if (response.status === SERVER_ERRORS.DATABASE_FULL)
       snackbar.dispatch(SNACKBAR_ACTIONS.STORAGE_FULL);
     else if (response.status === SERVER_RESPONSE.SIGNUP_SUCCESSFUL) {
-      debugger;
       //Sigup Successful
-
       createSession(response.data);
       snackbar.dispatch(SNACKBAR_ACTIONS.SIGNED_UP);
       setUser(response.data);
@@ -119,6 +109,7 @@ function Form(props) {
         />
       </Grid>
       <Grid item xs={12}>
+        {props.type === "logIn" ? <CheckBox ref={checkRef} /> : ""}
         <Button
           variant="contained"
           sx={{
