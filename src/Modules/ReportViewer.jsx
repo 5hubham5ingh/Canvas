@@ -8,9 +8,26 @@ import parse from "html-react-parser";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { useReactToPrint } from "react-to-print";
 import report from "./../utils/Report.json";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import {
+  Divider,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Modal,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useUser } from "./User/userContext";
 
 export default function ReportViewer() {
   const [Report, setReport] = useState(report[0]);
+  const [result, setResult] = useState();
+  const [open, setOpen] = useState(false);
+  const exportRef = useRef();
+  const invoiceRef = useRef();
+  const { user } = useUser();
 
   useEffect(() => {
     let url = new URLSearchParams(window.location.search);
@@ -34,10 +51,7 @@ export default function ReportViewer() {
     pdfVersion: "2.0",
   };
 
-  const [result, setResult] = useState();
-  const exportRef = useRef();
-  const invoiceRef = useRef();
-
+  //Prepare HTML
   useEffect(() => {
     //function definition to create html report from Report received as prop
     async function loadReport() {
@@ -131,6 +145,27 @@ export default function ReportViewer() {
     URL.revokeObjectURL(url);
   }
 
+  const style = {
+    position: "absolute",
+    top: "40%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "50vw",
+    bgcolor: "lightsteelblue",
+    opacity: "0.9",
+    borderRadius: "30px",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const openFile = (fileId) => {
+    const file = user.files.find((file) => file.id === fileId);
+    setReport(file);
+    setOpen(false);
+  };
+
+  const handleClose = () => setOpen(false);
+
   return (
     <Box sx={{ display: "flex" }}>
       <SideDrawer
@@ -138,8 +173,37 @@ export default function ReportViewer() {
         print={print}
         exportPdf={ExportPdf}
         exportHTML={exportHtml}
+        openFile={setOpen}
       />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="log-in"
+        aria-describedby="log-in-page"
+      >
+        <Box sx={style}>
+          <Stack direction="column">
+            <Typography pl={"1em"}>Open file</Typography>
+            <Divider color="#1DA1F2" />
 
+            <List>
+              {user.files.map((file) => (
+                <ListItemButton
+                  key={file.id}
+                  name={file.id}
+                  component="a"
+                  onClick={() => openFile(file.id)}
+                >
+                  <ListItemIcon>
+                    <InsertDriveFileIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={file.displayName} />
+                </ListItemButton>
+              ))}
+            </List>
+          </Stack>
+        </Box>
+      </Modal>
       <Box
         component="main"
         sx={{

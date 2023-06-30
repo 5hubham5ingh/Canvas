@@ -75,7 +75,13 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
+function SideDrawer({
+  enableFullScreen,
+  print,
+  exportPdf,
+  exportHTML,
+  openFile,
+}) {
   const [open, setOpen] = React.useState(false);
   const [accordion, setAccordion] = useState(false);
   const navigate = useNavigate();
@@ -94,6 +100,7 @@ function SideDrawer({ enableFullScreen, print, exportPdf, exportHTML }) {
   const handleClick = (e) => {
     switch (e.currentTarget.getAttribute("name")) {
       case "Open":
+        openFile(true);
         break;
       case "Print":
         print();
