@@ -39,6 +39,7 @@ export default function Appbar() {
       case "logout":
         setUser(undefined);
         snackbar.dispatch(snackbarAction.LOGGED_OUT);
+        sessionStorage.removeItem(user.accountName);
         break;
 
       default:
