@@ -1,16 +1,17 @@
-
 import Background from "./Background";
 import Appbar from "./Appbar";
 import About from "./About";
+import Body from "./Body";
 
 function LandingPage() {
   return (
-    <div>
+    <>
       <Appbar />
       <Background>
+        <Body />
         <About />
       </Background>
-    </div>
+    </>
   );
 }
 
