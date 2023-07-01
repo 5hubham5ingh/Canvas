@@ -1,0 +1,10 @@
+.background {
+    /* hide scrollbar but allow scrolling */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .background::-webkit-scrollbar {
+    display: none;
+  }
+  

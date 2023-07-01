@@ -22,3 +22,14 @@ body {
 body::-webkit-scrollbar {
   display: none !important; /* for Chrome, Safari and Opera */
 }
+
+/* hide scrollbar but allow scrolling */
+.background {
+  -ms-overflow-style: none !important; /* for Internet Explorer, Edge */
+  scrollbar-width: none !important; /* for Firefox */
+  overflow-y: scroll !important;
+}
+
+.background:-webkit-scrollbar {
+  display: none !important; /* for Chrome, Safari and Opera */
+}
