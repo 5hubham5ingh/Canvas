@@ -7,11 +7,12 @@ function Background({ children }) {
       style={{
         backgroundImage: `url(${background})`,
         backgroundRepeat: "round",
-        height: "220vh",
+        height: "100vh",
         width: "100vw",
         // backgroundSize: "100%",
         backgroundSize: "cover",
         // filter: "blur(5px)",
+        display: "fixed",
       }}
     >
       {children}
