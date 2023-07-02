@@ -1,0 +1,10 @@
+.scroll-container {
+  
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    
+  }
+  .Card {
+ 
+    scroll-snap-align: start;
+  }  

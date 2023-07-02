@@ -126,7 +126,7 @@ function Form(props) {
         </Button>
       </Grid>
       <Grid item xs={12}>
-        <Divider color="#000066" />
+        <Divider color="#1DA1F2" />
         {props.type === "signUp" ? (
           <Typography variant="subtitle2">
             Already have an account?

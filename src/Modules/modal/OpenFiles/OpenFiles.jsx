@@ -24,11 +24,11 @@ export default function OpenFiles({ open }) {
   return (
     <>
       <Stack direction="column">
-        <Typography pl={"1em"}>Open file</Typography>
+        <Typography pl={"0.5em"} variant="h6">Open file</Typography>
         <Divider color="#1DA1F2" />
 
         <List>
-          {files.map((file) => (
+          {files.length > 0 ? files.map((file) => (
             <ListItemButton
               key={file.id}
               name={file.id}
@@ -40,7 +40,7 @@ export default function OpenFiles({ open }) {
               </ListItemIcon>
               <ListItemText primary={file.displayName} />
             </ListItemButton>
-          ))}
+          )) : <Typography pl={"0.5em"} paragraph color={"red"}>No file exists.</Typography>}
         </List>
       </Stack>
     </>

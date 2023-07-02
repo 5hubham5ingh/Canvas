@@ -89,7 +89,7 @@ export default function SnackBar() {
     <>
       <Snackbar
         message={snackbar.state.message}
-        autoHideDuration={3000}
+        autoHideDuration={2500}
         open={snackbar.state.visibility}
         onClose={close}
         anchorOrigin={{

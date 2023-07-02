@@ -1,4 +1,6 @@
 import { createContext, useContext, useState,useEffect } from "react";
+import { MethodType, RequestType, sendRequest } from "../../Server/server";
+import { RESPONSE } from "../../Server/responce";
 
 const userContext = createContext();
 
@@ -23,7 +25,12 @@ export const UserContextProvider = ({ children }) => {
     //If account exists in cookie then get account data from session storage
     if (accountName !== null) {
       const account = sessionStorage.getItem(accountName);
-      if (account !== null) setUser(JSON.parse(account));
+      if (account !== null) {
+        let accountObj = JSON.parse(account);
+        //make the login request to the server
+        const response = sendRequest(MethodType.GET, RequestType.LOGIN, {accountName: accountObj.accountName, key: accountObj.key});
+        if(response.status === RESPONSE.SIGNIN_SUCCESSFUL)
+        setUser(accountObj)};
     }
   }, []);
   return (

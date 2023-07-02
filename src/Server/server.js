@@ -44,6 +44,7 @@ export const sendRequest = (methodType, requestType, body) => {
     case MethodType.GET:
       switch (requestType) {
         case RequestType.LOGIN:
+          debugger
           const data = getData(body.accountName);
           if (data === null) return serverResponse(ERROR.INVALID_ACCOUNT, null);
           else if (data.key === body.key) {
@@ -71,7 +72,7 @@ export const sendRequest = (methodType, requestType, body) => {
         case RequestType.SAVE_FILE:
           debugger;
           //check if the file already exists
-          const file = account.files.find((file) => file?.id === body?.id);
+          const file = account.files.find((file) => file? file.id === body.id : true);
 
           //if the file does not exits then save it
           if (file === undefined) {

@@ -17,6 +17,7 @@ body {
   -ms-overflow-style: none !important; /* for Internet Explorer, Edge */
   scrollbar-width: none !important; /* for Firefox */
   overflow-y: scroll !important;
+  font-family: 'Neue Helvetica', sans-serif;
 }
 
 body::-webkit-scrollbar {

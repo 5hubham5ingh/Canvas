@@ -187,7 +187,7 @@ export default function ReportViewer() {
             <Divider color="#1DA1F2" />
 
             <List>
-              {user.files.map((file) => (
+              {user.files.length > 0 ? user.files.map((file) => (
                 <ListItemButton
                   key={file.id}
                   name={file.id}
@@ -199,7 +199,7 @@ export default function ReportViewer() {
                   </ListItemIcon>
                   <ListItemText primary={file.displayName} />
                 </ListItemButton>
-              ))}
+              )) : <Typography pl={"0.5em"} paragraph color={"red"}>No file exists.</Typography>}
             </List>
           </Stack>
         </Box>

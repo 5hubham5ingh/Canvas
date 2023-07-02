@@ -87,7 +87,7 @@ function SaveNewFile({ file }) {
           size="small" variant="contained" onClick={overrideExistingFile}>
             Override existing file
           </Button>
-        ) : (
+        ) : ""}
           <Button
             sx={{
               backgroundColor: "lightsteelblue",
@@ -102,7 +102,6 @@ function SaveNewFile({ file }) {
           >
             Save
           </Button>
-        )}
       </Grid>
     </Grid>
   );

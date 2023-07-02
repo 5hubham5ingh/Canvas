@@ -7,6 +7,7 @@ import { SnackBarContextProvider } from "./Modules/snackbar/SnackBar";
 import { ModalContextProvider } from "./Modules/modal/Modal";
 import { UserContextProvider } from "./Modules/User/userContext";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

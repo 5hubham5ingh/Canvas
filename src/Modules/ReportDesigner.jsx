@@ -41,7 +41,7 @@ function ReportDesigner() {
       //if it's a new report
       //set unique report id
       newReport.id = user.files.length.toString();
-      debugger;
+      
       await asyncDispatchModal({
         type: MODAL_ACTION.SAVE_NEW_FILE,
         payload: newReport,
@@ -61,9 +61,9 @@ function ReportDesigner() {
       newReport = response.data.files.find((file) => file.id === newReport.id);
     }
 
-    newReport = user.files[user.files.length - 1];
+   
     return Promise.resolve({
-      id: newReport.id,
+      id: "0",
       displayName: newReport.displayName,
     });
   };
