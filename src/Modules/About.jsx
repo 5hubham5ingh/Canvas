@@ -10,6 +10,7 @@ export default function About() {
   return (
     <Box
       p={2}
+      id="About"
       sx={{
         position: "relative",
         color: "#ADD8E6",

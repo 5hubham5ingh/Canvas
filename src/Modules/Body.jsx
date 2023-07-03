@@ -51,10 +51,11 @@ function Body() {
       spacing={"4em"}
       alignItems={"center"}
     >
-      {cards.map((card) => (
+      {cards.map((card, index) => (
         <Card
           p="2em"
           className="Card"
+          key={index}
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -90,8 +91,10 @@ function Body() {
                   justifyContent: "center",
                 }}
               >
-                <Typography variant="h2" >{card.heading}</Typography>
-                <Typography variant="h5" p={"1em"} pl={0}>{card.para}</Typography>
+                <Typography variant="h2">{card.heading}</Typography>
+                <Typography variant="h5" p={"1em"} pl={0}>
+                  {card.para}
+                </Typography>
               </Grid>
             </Grid>
           </CardContent>

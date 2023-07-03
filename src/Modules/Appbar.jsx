@@ -9,7 +9,7 @@ import { ACTION as modalAction } from "./modal/Action";
 import { animateScroll } from "react-scroll";
 import { useUser } from "./User/userContext";
 import { useSnackBar } from "./snackbar/SnackBar";
-import { ACTION as snackbarAction} from "./snackbar/Actions";
+import { ACTION as snackbarAction } from "./snackbar/Actions";
 
 export default function Appbar() {
   const navigate = useNavigate();
@@ -34,7 +34,8 @@ export default function Appbar() {
         dispatchModal({ type: modalAction.OPEN_SIGNUP });
         break;
       case "about":
-        animateScroll.scrollToBottom();
+        const element = document.getElementById("About");
+        element.scrollIntoView({ behavior: "smooth" });
         break;
       case "logout":
         setUser(undefined);
