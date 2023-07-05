@@ -1,4 +1,4 @@
-import { createContext, useContext, useState,useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { MethodType, RequestType, sendRequest } from "../../Server/server";
 import { RESPONSE } from "../../Server/responce";
 
@@ -28,9 +28,13 @@ export const UserContextProvider = ({ children }) => {
       if (account !== null) {
         let accountObj = JSON.parse(account);
         //make the login request to the server
-        const response = sendRequest(MethodType.GET, RequestType.LOGIN, {accountName: accountObj.accountName, key: accountObj.key});
-        if(response.status === RESPONSE.SIGNIN_SUCCESSFUL)
-        setUser(accountObj)};
+        const response = sendRequest(MethodType.GET, RequestType.LOGIN, {
+          accountName: accountObj.accountName,
+          key: accountObj.key,
+        });
+        if (response.status === RESPONSE.SIGNIN_SUCCESSFUL)
+          setUser(response.data);
+      }
     }
   }, []);
   return (

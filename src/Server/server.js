@@ -44,7 +44,7 @@ export const sendRequest = (methodType, requestType, body) => {
     case MethodType.GET:
       switch (requestType) {
         case RequestType.LOGIN:
-          debugger
+          debugger;
           const data = getData(body.accountName);
           if (data === null) return serverResponse(ERROR.INVALID_ACCOUNT, null);
           else if (data.key === body.key) {
@@ -72,7 +72,9 @@ export const sendRequest = (methodType, requestType, body) => {
         case RequestType.SAVE_FILE:
           debugger;
           //check if the file already exists
-          const file = account.files.find((file) => file? file.id === body.id : true);
+          const file = account.files.find((file) =>
+            file ? file.id === body.id : true
+          );
 
           //if the file does not exits then save it
           if (file === undefined) {
@@ -130,6 +132,18 @@ export const sendRequest = (methodType, requestType, body) => {
     case MethodType.DELETE:
       switch (requestType) {
         case RequestType.DELETE_FILE:
+          account.files = account.files.filter((file) => {
+            debugger;
+            return file.id === body;
+          });
+
+          setData(account.accountName, account);
+          return serverResponse({
+            status: RESPONSE.FILE_DELETED,
+            data: account,
+          });
+
+        case RequestType.DELETE_ACCOUNT:
           break;
         default:
       }

@@ -13,9 +13,14 @@ import { useUser } from "../../User/userContext";
 import { useModal } from "../Modal";
 import { ACTION } from "../Action";
 import { MethodType, RequestType, sendRequest } from "../../../Server/server";
+import { RESPONSE } from "../../../Server/responce";
+import { useSnackBar } from "../../snackbar/SnackBar";
+import { ACTION as SnackBarAction } from "./../../snackbar/Actions";
 export default function OpenFiles({ open }) {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const { dispatchModal } = useModal();
+  const snackbar = useSnackBar();
+
   const files = user.files;
 
   const openFile = (fileId) => {
@@ -26,11 +31,16 @@ export default function OpenFiles({ open }) {
   };
 
   const deleteFile = (fileId) => {
+    debugger;
     const response = sendRequest(
       MethodType.DELETE,
       RequestType.DELETE_FILE,
       fileId
     );
+    if (response.status === RESPONSE.FILE_DELETED) {
+      snackbar.dispatch(SnackBarAction.FILE_DELETED);
+      setUser(response.data);
+    }
   };
   return (
     <>
@@ -43,9 +53,8 @@ export default function OpenFiles({ open }) {
         <List>
           {files.length > 0 ? (
             files.map((file) => (
-              <Stack direction="row" alignItems={"center"}>
+              <Stack direction="row" alignItems={"center"} key={file.id}>
                 <ListItemButton
-                  key={file.id}
                   name={file.id}
                   component="a"
                   onClick={() => openFile(file.id)}
@@ -62,8 +71,7 @@ export default function OpenFiles({ open }) {
                       color: "black", // Define the hover color
                     },
                   }}
-                  key={file.id}
-                  onClick={() => alert(file.id)}
+                  onClick={() => deleteFile(file.id)}
                 />
               </Stack>
             ))

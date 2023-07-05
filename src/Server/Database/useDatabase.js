@@ -19,3 +19,7 @@ export function getData(key) {
   if (data === null) return null;
   else return JSON.parse(data);
 }
+
+export function deleteAccount(accountName) {
+  localStorage.removeItem(accountName);
+}

@@ -8,4 +8,5 @@ export const ACTION = {
   SIGNED_UP: "signed-up",
   PREEXISTING_FILE: "preexistingFile",
   FILE_SAVED: "fileSaved",
+  FILE_DELETED: "fileDeleted",
 };
