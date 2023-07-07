@@ -134,14 +134,11 @@ export const sendRequest = (methodType, requestType, body) => {
         case RequestType.DELETE_FILE:
           account.files = account.files.filter((file) => {
             debugger;
-            return file.id === body;
+            return file.id !== body;
           });
 
           setData(account.accountName, account);
-          return serverResponse({
-            status: RESPONSE.FILE_DELETED,
-            data: account,
-          });
+          return serverResponse(RESPONSE.FILE_DELETED, account);
 
         case RequestType.DELETE_ACCOUNT:
           break;
