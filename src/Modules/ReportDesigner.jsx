@@ -62,12 +62,6 @@ const saveNewFile = async (newFile) => {
   }
 };
 
-const openNewFile = ()=>{
-//designerRef.current.setReport(newFile);
-// designerRef.current.processCommand('open');
-return Promise.resolve(newFile);
-}
-
 //Save the file
 const onSave = async (newReport) => {
   console.log(JSON.stringify(newReport));
@@ -124,7 +118,7 @@ const onSave = async (newReport) => {
         ref={designerRef}
         onRender={onReportPreview}
         onOpen={openReport}
-        onCreate={openNewFile}
+        onCreate={()=> Promise.resolve(newFile)}
       />
     </div>
   );
