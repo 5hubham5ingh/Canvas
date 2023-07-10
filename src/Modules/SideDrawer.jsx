@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -81,6 +81,7 @@ function SideDrawer({
   exportPdf,
   exportHTML,
   openFile,
+  id
 }) {
   const [open, setOpen] = React.useState(false);
   const [accordion, setAccordion] = useState(false);
@@ -115,16 +116,27 @@ function SideDrawer({
         enableFullScreen();
         break;
       case "Designer":
-        navigate("/Designer");
+        navigate(`/Designer?id=${id.current}`);
         break;
       case "Exit to Home":
         navigate("/");
         break;
-      case "Info":
-        break;
       default:
     }
   };
+
+  useEffect(()=>{
+    let url = new URLSearchParams(window.location.search);
+    let fileId = url.get("id");
+    if (fileId !== null) {
+    window.addEventListener('popstate', function(event) {
+      navigate(`/Designer?id=${id.current}`);
+    });
+    }
+    
+  })
+
+
   return (
     <Drawer
       variant="permanent"

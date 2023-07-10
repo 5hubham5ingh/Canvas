@@ -28,12 +28,14 @@ export default function ReportViewer() {
   const exportRef = useRef();
   const invoiceRef = useRef();
   const { user } = useUser();
+  const id =useRef();
 
   useEffect(() => {
     let url = new URLSearchParams(window.location.search);
     let fileId = url.get("id");
     if (fileId !== null) {
       try {
+        id.current = fileId;
         let fileString = sessionStorage.getItem(fileId);
         setReport(JSON.parse(fileString));
       } catch (e) {
@@ -41,7 +43,7 @@ export default function ReportViewer() {
       }
     }
   }, []);
-  debugger;
+  
   // const Report = report[0];
   const pdfExportSettings = {
     title: "Invoice",
@@ -174,6 +176,7 @@ export default function ReportViewer() {
         exportPdf={ExportPdf}
         exportHTML={exportHtml}
         openFile={setOpen}
+        id={id}
       />
       <Modal
         open={open}

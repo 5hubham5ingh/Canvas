@@ -43,6 +43,7 @@ function SaveNewFile({ file }) {
       debugger
       setUser(response.data);
       dispatch(SNACKBAR_ACTION.FILE_SAVED);
+      sessionStorage.setItem("fileName",value);
       dispatchModal({type: MODAL_ACTIONS.CLOSE});
     }
   };
@@ -56,6 +57,7 @@ function SaveNewFile({ file }) {
     if (response.status === RESPONSE.FILE_SAVED_SUCCESSFUL) {
       setUser(response.data);
       dispatch(SNACKBAR_ACTION.FILE_SAVED);
+      sessionStorage.setItem("fileName",value);
       dispatchModal({type:MODAL_ACTIONS.CLOSE});
     }
   };

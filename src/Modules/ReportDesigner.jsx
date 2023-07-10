@@ -21,9 +21,19 @@ function ReportDesigner() {
   const { user } = useUser();
 
   useEffect(() => {
-    let workingFile = sessionStorage.getItem("NewFile");
-    if (workingFile === null) designerRef.current.setReport(newFile);
-    else designerRef.current.setReport(JSON.parse(workingFile));
+    let url = new URLSearchParams(window.location.search);
+    let fileId = url.get("id");
+    if (fileId !== null) {
+      try {
+        let fileString = sessionStorage.getItem(fileId);
+        designerRef.current.setReport(JSON.parse(fileString));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    else 
+    designerRef.current.setReport(newFile);
+   
   }, []);
 
   //open new report
@@ -32,41 +42,69 @@ function ReportDesigner() {
     dispatchModal({ type: MODAL_ACTION.OPEN_FILES, payload: designerRef });
   };
 
-  //Save the new report
-  const onSave = async (newReport) => {
-    console.log(JSON.stringify(newReport));
-
-    //Check if the report being saved is a new report or an old one
-    if (newReport.displayName === "NewFile") {
-      //if it's a new report
-      //set unique report id
-      newReport.id = user.files.length.toString();
-      
-      await asyncDispatchModal({
-        type: MODAL_ACTION.SAVE_NEW_FILE,
-        payload: newReport,
-      });
-    } else {
-      // else if it's an old report
-      const response = sendRequest(
-        MethodType.PUT,
-        RequestType.SAVE_FILE,
-        newReport
-      );
-      //if file saved successfully
-      if (response.status === RESPONSE.FILE_SAVED_SUCCESSFUL)
-        snackbar.dispatch(ACTION.FILE_SAVED);
-
-      //set the new file from db
-      newReport = response.data.files.find((file) => file.id === newReport.id);
-    }
-
-   
+//save new file
+const saveNewFile = async (newFile) => {
+  const fileName = sessionStorage.getItem("fileName");
+  
+  if (fileName !== null) {
+    sessionStorage.removeItem("fileName");
     return Promise.resolve({
-      id: "0",
-      displayName: newReport.displayName,
+      id: newFile.id,
+      displayName: fileName,
     });
-  };
+  } else {
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        const result = await saveNewFile(newFile);
+        resolve(result);
+      }, 5000);
+    });
+  }
+};
+
+const openNewFile = ()=>{
+//designerRef.current.setReport(newFile);
+// designerRef.current.processCommand('open');
+return Promise.resolve(newFile);
+}
+
+//Save the file
+const onSave = async (newReport) => {
+  console.log(JSON.stringify(newReport));
+  let id = 0;
+  //Check if the report being saved is a new report or an old one
+  if (newReport.displayName === "NewFile") {
+    //if it's a new report
+    //set unique report id
+    user.files.forEach((file)=>id += parseInt(file.id));
+    newReport.id = id;     
+    await asyncDispatchModal({
+      type: MODAL_ACTION.SAVE_NEW_FILE,
+      payload: newFile,
+    });
+    return await saveNewFile(newReport);
+    
+  } else {
+    // else if it's an old report
+    const response = sendRequest(
+      MethodType.PUT,
+      RequestType.SAVE_FILE,
+      newReport
+    );
+    //if file saved successfully
+    if (response.status === RESPONSE.FILE_SAVED_SUCCESSFUL)
+      snackbar.dispatch(ACTION.FILE_SAVED);
+
+    //set the new file from db
+    newReport = response.data.files.find((file) => file.id === newReport.id);
+  }
+
+ 
+  return Promise.resolve({
+    id: newReport.id,
+    displayName: newReport.displayName,
+  });
+};
 
   //to view the report in the viewer
   const onReportPreview = (modifiedReport) => {
@@ -86,6 +124,7 @@ function ReportDesigner() {
         ref={designerRef}
         onRender={onReportPreview}
         onOpen={openReport}
+        onCreate={openNewFile}
       />
     </div>
   );
