@@ -128,11 +128,19 @@ function SideDrawer({
   useEffect(()=>{
     let url = new URLSearchParams(window.location.search);
     let fileId = url.get("id");
-    if (fileId !== null) {
-    window.addEventListener('popstate', function(event) {
+
+    const handlePopState=()=>{
       navigate(`/Designer?id=${id.current}`);
-    });
     }
+
+    if (fileId !== null) {
+    window.addEventListener('popstate', handlePopState);
+    }
+
+    if (fileId !== null) 
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
     
   })
 

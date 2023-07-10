@@ -57,7 +57,7 @@ const saveNewFile = async (newFile) => {
       setTimeout(async () => {
         const result = await saveNewFile(newFile);
         resolve(result);
-      }, 5000);
+      }, 1000);
     });
   }
 };
