@@ -15,20 +15,22 @@ export default function Appbar() {
   const snackbar = useSnackBar();
   const { dispatchModal } = useModal();
   const { user, setUser } = useUser();
+  const userOnlyButtons = ["Designer", "Viewer", "Logout"];
+  const visitorOnlyButtons =["LogIn","SignUp"]
 
   const handleClick = (button) => {
     switch (button.target.name) {
-      case "designer":
+      case "Designer":
         navigate("/designer");
         break;
-      case "viewer":
+      case "Viewer":
         navigate("/viewer");
         break;
-      case "logIn":
+      case "LogIn":
         // props.logIn.current.open();
         dispatchModal({ type: modalAction.OPEN_LOGIN });
         break;
-      case "signUp":
+      case "SignUp":
         // props.signUp.current.open();
         dispatchModal({ type: modalAction.OPEN_SIGNUP });
         break;
@@ -36,7 +38,7 @@ export default function Appbar() {
         const element = document.getElementById("About");
         element.scrollIntoView({ behavior: "smooth" });
         break;
-      case "logout":
+      case "Logout":
         setUser(undefined);
         snackbar.dispatch(snackbarAction.LOGGED_OUT);
         sessionStorage.removeItem(user.accountName);
@@ -64,46 +66,23 @@ export default function Appbar() {
           Canvas
         </Typography>
         {user !== undefined ? (
-          <>
+          userOnlyButtons.map((button) => (
             <Button
-              name="designer"
+              name={button}
               onClick={handleClick}
               sx={{ color: "aqua", marginRight: "50px" }}
             >
-              Designer
+              {button}
             </Button>
-            <Button
-              name="viewer"
-              onClick={handleClick}
-              sx={{ color: "aqua", marginRight: "50px" }}
-            >
-              Viewer
-            </Button>
-            <Button
-              name="logout"
-              onClick={handleClick}
-              sx={{ color: "aqua", marginRight: "50px" }}
-            >
-              Logout
-            </Button>
-          </>
+          ))
         ) : (
-          <>
-            <Button
-              name="logIn"
-              onClick={handleClick}
-              sx={{ color: "aqua", marginRight: "50px" }}
-            >
-              Login
-            </Button>
-            <Button
-              name="signUp"
-              onClick={handleClick}
-              sx={{ color: "aqua", marginRight: "50px" }}
-            >
-              SignUp
-            </Button>
-          </>
+          visitorOnlyButtons.map((button)=><Button
+          name={button}
+          onClick={handleClick}
+          sx={{ color: "aqua", marginRight: "50px" }}
+        >
+          {Button}
+        </Button>)
         )}
 
         <Button name="about" onClick={handleClick} sx={{ color: "aqua" }}>
