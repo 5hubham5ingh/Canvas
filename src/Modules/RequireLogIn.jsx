@@ -5,7 +5,7 @@ import { useUser } from "./User/userContext";
 
 
 function RequireLogIn() {
-  const { user, setUser } = useUser();
+  const { user} = useUser();
 
  
 

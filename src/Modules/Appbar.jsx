@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "./modal/Modal";
 import { ACTION as modalAction } from "./modal/Action";
-import { animateScroll } from "react-scroll";
 import { useUser } from "./User/userContext";
 import { useSnackBar } from "./snackbar/SnackBar";
 import { ACTION as snackbarAction } from "./snackbar/Actions";

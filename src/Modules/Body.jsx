@@ -8,7 +8,6 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import "./Styles/body.css";
 function Body() {
   const iconSize = { fontSize: "20em", color: "white" };
-  const excelSize = { fontSize: "10em" };
   const cards = [
     {
       icon: <BrushIcon sx={iconSize} />,

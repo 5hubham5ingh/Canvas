@@ -1,6 +1,4 @@
 import { ERROR } from "../error";
-import { ACTION } from "./actions";
-import { QUERIES } from "./queries";
 
 export function setData(key, value) {
   const dataString = JSON.stringify(value);

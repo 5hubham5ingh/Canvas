@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { MethodType, RequestType, sendRequest } from "../../../Server/server";
-import { Box, Button, Divider, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { ERROR } from "../../../Server/error";
 import { useSnackBar } from "../../snackbar/SnackBar";
 import { ACTION as SNACKBAR_ACTION } from "../../snackbar/Actions";

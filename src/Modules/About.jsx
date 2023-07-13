@@ -1,4 +1,4 @@
-import { GitHub, Link, Twitter } from "@mui/icons-material";
+import { GitHub, Twitter } from "@mui/icons-material";
 import { Box, Divider, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 
