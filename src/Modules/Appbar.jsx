@@ -66,9 +66,10 @@ export default function Appbar() {
           Canvas
         </Typography>
         {user !== undefined ? (
-          userOnlyButtons.map((button) => (
+          userOnlyButtons.map((button,index) => (
             <Button
               name={button}
+              key={index}
               onClick={handleClick}
               sx={{ color: "aqua", marginRight: "50px" }}
             >
@@ -76,12 +77,13 @@ export default function Appbar() {
             </Button>
           ))
         ) : (
-          visitorOnlyButtons.map((button)=><Button
+          visitorOnlyButtons.map((button,index)=><Button
           name={button}
+          key={index}
           onClick={handleClick}
           sx={{ color: "aqua", marginRight: "50px" }}
         >
-          {Button}
+          {button}
         </Button>)
         )}
 

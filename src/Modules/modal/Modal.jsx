@@ -1,9 +1,10 @@
 import { Box, Modal as MUIModal } from "@mui/material";
-import SignUpNLogInTab from "../SignUpNLogInTabs";
-import { useReducer, createContext, useContext } from "react";
+import { useReducer, createContext, useContext,lazy } from "react";
 import { ACTION } from "./Action";
-import SaveNewFile from "./SaveNewFile/SaveNewFile";
-import OpenFiles from "./OpenFiles/OpenFiles";
+
+const SignUpNLogInTab = lazy(()=> import("../SignUpNLogInTabs"));
+const SaveNewFile = lazy(()=> import("./SaveNewFile/SaveNewFile"));
+const OpenFiles = lazy(()=> import("./OpenFiles/OpenFiles"))
 
 const initialState = {
   what: "",
@@ -80,6 +81,7 @@ export function Modal() {
       aria-describedby="log-in-page"
     >
       <Box sx={style}>
+        
         {state.what === "signUp" ? (
           <SignUpNLogInTab tab={state.what} />
         ) : state.what === "logIn" ? (
