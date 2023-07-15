@@ -7,7 +7,7 @@ import excel from "./../utils/excel.png";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import "./Styles/body.css";
 function Body() {
-  const iconSize = { fontSize: "20em", color: "white" };
+  const iconSize = { fontSize: "20vw", color: "white" };
   const cards = [
     {
       icon: <BrushIcon sx={iconSize} />,
@@ -26,7 +26,7 @@ function Body() {
     },
 
     {
-      icon: <img src={excel} alt="" width={"300em"} />,
+      icon: <img src={excel} alt="" width={"200vw"} />,
       heading: "Excel file generation",
       para: "Generate an Excel file from your design file with just one click. You can customize the layout and design of your Excel file, and it will look great on any device.",
     },
@@ -71,19 +71,22 @@ function Body() {
             <Grid container>
               <Grid
                 item
-                xs={6}
+                xs={12}
                 sm={6}
+                md={6}
                 sx={{
                   display: "flex",
                   justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 {card.icon}
               </Grid>
               <Grid
                 item
-                xs={6}
+                xs={12}
                 sm={6}
+                md={6}
                 sx={{
                   display: "flex",
                   flexDirection: "column",
