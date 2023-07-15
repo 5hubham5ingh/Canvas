@@ -1,10 +1,9 @@
 import { Box, Modal as MUIModal } from "@mui/material";
 import { useReducer, createContext, useContext,lazy } from "react";
 import { ACTION } from "./Action";
-
-const SignUpNLogInTab = lazy(()=> import("../SignUpNLogInTabs"));
-const SaveNewFile = lazy(()=> import("./SaveNewFile/SaveNewFile"));
-const OpenFiles = lazy(()=> import("./OpenFiles/OpenFiles"))
+import SignUpNLogInTab from "../SignUpNLogInTabs";
+import SaveNewFile from "./SaveNewFile/SaveNewFile";
+import OpenFiles from "./OpenFiles/OpenFiles";
 
 const initialState = {
   what: "",

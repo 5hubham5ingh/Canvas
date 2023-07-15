@@ -45,9 +45,10 @@ export default function ReportViewer() {
   }, []);
   
   // const Report = report[0];
-  const pdfExportSettings = {
-    title: "Invoice",
-    author: "Gstcafe",
+  const htmlExportSettings = {
+    multiPage: false,
+    title: "Design",
+    author: "AJRS-Canvas",
     keywords: "export, report",
     subject: "Report",
     pdfVersion: "2.0",
@@ -67,7 +68,7 @@ export default function ReportViewer() {
       const doc = await report.run();
 
       //create html report from the report doc
-      const result = await HtmlExport.exportDocument(doc, pdfExportSettings);
+      const result = await HtmlExport.exportDocument(doc, htmlExportSettings);
 
       //set the newly modified html as result
       setResult(() => {
