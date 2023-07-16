@@ -118,7 +118,7 @@ const onSave = async (newReport) => {
         ref={designerRef}
         onRender={onReportPreview}
         onOpen={openReport}
-        onCreate={()=> Promise.resolve(newFile)}
+        onCreate={()=> Promise.resolve({...newFile})}
       />
     </div>
   );

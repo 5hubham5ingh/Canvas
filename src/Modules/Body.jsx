@@ -60,7 +60,7 @@ function Body() {
             justifyContent: "center",
             alignItems: "center",
             maxWidth: "100vw",
-            minHeight: "80vh",
+            minHeight: "60vh",
             color: "white",
             background: "black",
             opacity: "80%",

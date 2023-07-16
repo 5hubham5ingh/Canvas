@@ -213,7 +213,7 @@ export default function ReportViewer() {
         sx={{
           flexGrow: 1,
           p: 3,
-          backgroundColor: "white",
+          background:"#e1ebfc",
         }}
       >
         {result?.data !== undefined ? (
@@ -230,7 +230,7 @@ export default function ReportViewer() {
               style={{
                 display: "flex",
                 justifyContent: "center",
-
+                
                 width: "100%",
                 height: "100%",
                 overflow: "auto",

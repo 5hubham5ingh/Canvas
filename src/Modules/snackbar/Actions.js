@@ -9,4 +9,5 @@ export const ACTION = {
   PREEXISTING_FILE: "preexistingFile",
   FILE_SAVED: "fileSaved",
   FILE_DELETED: "fileDeleted",
+  SESSION_EXPIRED: "sessionExpired"
 };

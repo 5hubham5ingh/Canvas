@@ -79,6 +79,12 @@ function reducer(state = initialState, action) {
         severity: "info",
         visibility: true,
       };
+    case ACTION.SESSION_EXPIRED:
+      return {
+        message: "Session Expired.",
+        severity: "error",
+        visibility: true
+      }
     default:
       return {
         ...state,

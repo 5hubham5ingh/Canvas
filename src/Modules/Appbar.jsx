@@ -71,7 +71,7 @@ export default function Appbar() {
               name={button}
               key={index}
               onClick={handleClick}
-              sx={{ color: "aqua", marginRight: "50px" }}
+              sx={{ color: "aqua", marginRight: "3vw" }}
             >
               {button}
             </Button>
@@ -81,7 +81,7 @@ export default function Appbar() {
           name={button}
           key={index}
           onClick={handleClick}
-          sx={{ color: "aqua", marginRight: "50px" }}
+          sx={{ color: "aqua", marginRight: "3vw" }}
         >
           {button}
         </Button>)

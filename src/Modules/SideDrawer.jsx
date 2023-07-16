@@ -153,6 +153,7 @@ function SideDrawer({
         sx: {
           backgroundColor: "lightsteelblue",
           color: "#000066",
+          borderColor: "#000066"
         },
       }}
     >
