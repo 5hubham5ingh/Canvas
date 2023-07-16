@@ -10,6 +10,7 @@ export default function About() {
   return (
     <Box
       p={2}
+      pt={5}
       id="About"
       sx={{
         position: "relative",
@@ -23,7 +24,7 @@ export default function About() {
       <Typography variant="h6" pl={1}>
         About
       </Typography>
-      <Divider color="#1DA1F2" width="97%" />
+      <Divider color="#1DA1F2" width="97%" sx={{marginY: "0.2em"}}/>
       <Typography paragraph pl={1}>
         This application is designed only for demonstrative and educational
         purposes. It can be used to design no-code HTML, pdf and excel files,
