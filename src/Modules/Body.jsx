@@ -6,6 +6,7 @@ import FlightIcon from "@mui/icons-material/Flight";
 import excel from "./../utils/excel.png";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import "./Styles/body.css";
+import { useEffect, useRef } from "react";
 function Body() {
   const iconSize = { fontSize: "20vw", color: "white" };
   const cards = [
@@ -42,6 +43,35 @@ function Body() {
     },
   ];
 
+  useEffect(() => {
+    const handleIntersection = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-viewport"); // Add the "in-viewport" class to the observed card
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, {
+      root: null,
+      rootMargin: "20%",
+      threshold: 0.5,
+    });
+
+    const cardElements = document.querySelectorAll(".Card");
+    cardElements.forEach((element) => {
+      observer.observe(element);
+    });
+
+    // Clean up: Disconnect the Intersection Observer when the component unmounts
+    return () => {
+      cardElements.forEach((element) => {
+        observer.unobserve(element);
+      });
+    };
+  }, []);
+
   return (
     <Stack
       className="scroll-container"
@@ -51,23 +81,20 @@ function Body() {
       alignItems={"center"}
     >
       {cards.map((card, index) => (
-        <Card
-          p="2em"
-          className="Card"
-          key={index}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            maxWidth: "100vw",
-            minHeight: "60vh",
-            color: "white",
-            background: "black",
-            opacity: "80%",
-            borderRadius: "1em",
-          }}
-        >
-          <CardContent>
+        <Card p="2em" key={index}   sx={{
+          color: "white",
+          background: "black",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          maxWidth: "100vw",
+          minHeight: "60vh",
+          borderRadius: "1em",
+        }}>
+          <CardContent
+            className="Card  fade-in-left"
+           
+          >
             <Grid container>
               <Grid
                 item

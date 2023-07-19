@@ -1,10 +1,14 @@
-.scroll-container {
-  
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-    
-  }
-  .Card {
- 
-    scroll-snap-align: start;
-  }  
+
+
+/* CSS for fading in from left */
+.fade-in-left {
+  opacity: 0; /* Start with opacity 0 */
+  transform: translateX(20vw); /* Move the element 20px to the left */
+  transition: opacity 0.3s ease 0.3s, transform 1s ease; /* Transition properties */
+}
+
+/* CSS to reveal the element when it's in the viewport */
+.in-viewport {
+  opacity: 0.8; /* Show the element with opacity 1 */
+  transform: translateX(0); /* Move the element back to its original position */
+}
