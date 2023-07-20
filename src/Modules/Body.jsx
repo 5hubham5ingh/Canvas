@@ -48,6 +48,9 @@ function Body() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("in-viewport"); // Add the "in-viewport" class to the observed card
+          const haloElement = document.createElement("div");
+          haloElement.className = "halo";
+          entry.target.appendChild(haloElement);
           observer.unobserve(entry.target);
         }
       });
@@ -96,7 +99,7 @@ function Body() {
             className="Card  fade-in-left"
            
           >
-            <div className="halo"></div>
+           
             <Grid container>
               <Grid
                 item
