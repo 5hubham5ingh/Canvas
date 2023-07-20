@@ -6,6 +6,7 @@ import "./Styles/background.css"
 function Background({ children }) {
   return (
     <div
+    
     className="background"
       style={{
         backgroundImage: `url(${background})`,
@@ -20,6 +21,7 @@ function Background({ children }) {
         
       }}
     >
+      
       {children}
     </div>
   );

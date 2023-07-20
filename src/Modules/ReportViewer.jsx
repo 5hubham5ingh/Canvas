@@ -7,7 +7,7 @@ import { parse as parseNode } from "node-html-parser";
 import parse from "html-react-parser";
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { useReactToPrint } from "react-to-print";
-import report from "./../utils/Report.json";
+import report from "./../utils/noFile.json";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import {
   Divider,

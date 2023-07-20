@@ -90,11 +90,13 @@ function Body() {
           maxWidth: "100vw",
           minHeight: "60vh",
           borderRadius: "1em",
+          opacity: 0.9
         }}>
           <CardContent
             className="Card  fade-in-left"
            
           >
+            <div className="halo"></div>
             <Grid container>
               <Grid
                 item
@@ -126,6 +128,7 @@ function Body() {
                 </Typography>
               </Grid>
             </Grid>
+            
           </CardContent>
         </Card>
       ))}
