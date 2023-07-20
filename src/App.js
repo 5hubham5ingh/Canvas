@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SnackBar from "./Modules/snackbar/SnackBar";
 import { Modal } from "./Modules/modal/Modal";
+import Loader from "./Modules/Loader";
 const ReportDesigner = lazy(() => import("./Modules/ReportDesigner"));
 const ReportViewer = lazy(() => import("./Modules/ReportViewer"));
 const RequireLogIn = lazy(() => import("./Modules/RequireLogIn"));
@@ -13,7 +14,7 @@ export default function App() {
       <SnackBar />
       <Modal />
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader/>}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route element={<RequireLogIn />}>
