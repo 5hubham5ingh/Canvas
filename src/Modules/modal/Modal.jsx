@@ -1,5 +1,5 @@
 import { Box, Modal as MUIModal } from "@mui/material";
-import { useReducer, createContext, useContext,lazy } from "react";
+import { useReducer, createContext, useContext } from "react";
 import { ACTION } from "./Action";
 import SignUpNLogInTab from "../SignUpNLogInTabs";
 import SaveNewFile from "./SaveNewFile/SaveNewFile";

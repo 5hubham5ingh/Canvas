@@ -6,7 +6,7 @@ import FlightIcon from "@mui/icons-material/Flight";
 import excel from "./../utils/excel.png";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import "./Styles/body.css";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 function Body() {
   const iconSize = { fontSize: "20vw", color: "white" };
   const cards = [

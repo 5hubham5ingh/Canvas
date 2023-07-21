@@ -1,6 +1,7 @@
 {
   "name": "free-reporting",
   "version": "0.1.0",
+  "homepage": "https://5hubham5ingh.github.io/Canvas",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -26,6 +27,8 @@
     "yup": "^1.1.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
@@ -48,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }

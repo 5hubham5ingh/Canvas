@@ -43,19 +43,20 @@ export default function ReportViewer() {
       }
     }
   }, []);
-  
-  // const Report = report[0];
-  const htmlExportSettings = {
-    multiPage: false,
-    title: "Design",
-    author: "AJRS-Canvas",
-    keywords: "export, report",
-    subject: "Report",
-    pdfVersion: "2.0",
-  };
+
 
   //Prepare HTML
   useEffect(() => {
+
+    const htmlExportSettings = {
+      multiPage: false,
+      title: "Design",
+      author: "AJRS-Canvas",
+      keywords: "export, report",
+      subject: "Report",
+      pdfVersion: "2.0",
+    };
+
     //function definition to create html report from Report received as prop
     async function loadReport() {
       //create new active report js report

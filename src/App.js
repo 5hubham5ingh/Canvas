@@ -16,7 +16,7 @@ export default function App() {
       <BrowserRouter>
         <Suspense fallback={<Loader/>}>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/Canvas" element={<LandingPage />} />
             <Route element={<RequireLogIn />}>
               <Route path="/Designer" element={<ReportDesigner />} />
               <Route path="/Viewer" element={<ReportViewer />} />
