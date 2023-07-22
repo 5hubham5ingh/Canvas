@@ -5,7 +5,6 @@ import { RESPONSE } from "./responce";
 import { setData, getData } from "./Database/useDatabase";
 
 let account = undefined;
-console.log("account ", account);
 export const MethodType = {
   GET: "get",
   PUT: "put",
@@ -69,7 +68,6 @@ export const sendRequest = (methodType, requestType, body) => {
           else return serverResponse(ERROR.PREEXISTING_ACCOUNT, null);
 
         case RequestType.SAVE_FILE:
-          debugger;
           //check if the file already exists
           const file = account.files.find((file) =>
             file ? file.id === body.id : true
@@ -99,32 +97,7 @@ export const sendRequest = (methodType, requestType, body) => {
           setData(account.accountName, account);
 
           return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
-        // const updatedFile = account.files.find((file) => {
-        //   if (file.id === body.id) {
-        //     file = body;
-        //     return true;
-        //   } else return false;
-        // });
-        // if (updatedFile === null) account.files.push(body);
-
-        case RequestType.CREATE_FILE:
-          // const file = account.files.find((file) => {
-          //   if (file.id === body.id) {
-          //     file = body;
-          //     return true;
-          //   } else return false;
-          // });
-          // if (updatedFile !== null)
-          //   return serverResponse(RESPONSE.FILE_SAVED_SUCCESSFUL, account);
-          break;
-        default:
-      }
-      break;
-
-    case MethodType.PATCH:
-      switch (requestType) {
-        case RequestType.SAVE_FILE:
-          break;
+        
         default:
       }
       break;

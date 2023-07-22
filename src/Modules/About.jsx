@@ -24,7 +24,7 @@ export default function About() {
       <Typography variant="h6" pl={1}>
         About
       </Typography>
-      <Divider color="#1DA1F2" width="97%" sx={{marginY: "0.2em"}}/>
+      <Divider color="#1DA1F2" width="97%" sx={{ marginY: "0.2em" }} />
       <Typography paragraph pl={1}>
         This application is designed only for demonstrative and educational
         purposes. It can be used to design no-code HTML, pdf and excel files,
@@ -35,17 +35,14 @@ export default function About() {
         direction="row"
         p={0}
         pr={5}
-        justifyContent={"right"}
+        justifyContent={"center"}
         alignItems={"center"}
       >
-        Developer :-
         <IconButton variant="contained" color="white" onClick={openTwitter}>
-          <Twitter sx={{ color: "#1DA1F2" }} />
-          <Typography color="white">@5hubhamSingh</Typography>
+          <Twitter  sx={{ color: "grey",fontSize:"5vw","&:hover": { color: "white" } }} />
         </IconButton>
         <IconButton variant="contained" onClick={openGitHub}>
-          <GitHub sx={{ color: "white" }} />
-          <Typography color={"white"}>5hubham5ingh</Typography>
+          <GitHub  sx={{ color: "grey", fontSize:"5vw", "&:hover": { color: "white" } }} />
         </IconButton>
       </Stack>
     </Box>
