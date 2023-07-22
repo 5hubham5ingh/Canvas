@@ -85,6 +85,13 @@ function reducer(state = initialState, action) {
         severity: "error",
         visibility: true
       }
+
+    case ACTION.ACCOUNT_DELETED:
+      return {
+        message:"Account deleted.",
+        severity:"success",
+        visibility:true
+      }
     default:
       return {
         ...state,

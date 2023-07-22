@@ -3,4 +3,5 @@ export const RESPONSE = {
   SIGNIN_SUCCESSFUL: "signinSuccessful",
   FILE_SAVED_SUCCESSFUL: "fileSavedSuccessfull",
   FILE_DELETED: "fileDeleted",
+  ACCOUNT_DELETED: "accountDeleted"
 };

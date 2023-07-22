@@ -2,7 +2,7 @@
 
 import { ERROR } from "./error";
 import { RESPONSE } from "./responce";
-import { setData, getData } from "./Database/useDatabase";
+import { setData, getData, deleteAccount } from "./Database/useDatabase";
 
 let account = undefined;
 export const MethodType = {
@@ -113,7 +113,10 @@ export const sendRequest = (methodType, requestType, body) => {
           return serverResponse(RESPONSE.FILE_DELETED, account);
 
         case RequestType.DELETE_ACCOUNT:
-          break;
+          
+            deleteAccount(body);
+            return serverResponse(RESPONSE.ACCOUNT_DELETED);
+          
         default:
       }
       break;

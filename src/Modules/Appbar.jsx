@@ -10,13 +10,14 @@ import { useUser } from "./User/userContext";
 import { useSnackBar } from "./snackbar/SnackBar";
 import { ACTION as snackbarAction } from "./snackbar/Actions";
 
+
 export default function Appbar() {
   const navigate = useNavigate();
   const snackbar = useSnackBar();
   const { dispatchModal } = useModal();
   const { user, setUser } = useUser();
   const userOnlyButtons = ["Designer", "Viewer", "Logout"];
-  const visitorOnlyButtons =["LogIn","SignUp"]
+  const visitorOnlyButtons = ["LogIn", "SignUp"];
 
   const handleClick = (button) => {
     switch (button.target.name) {
@@ -27,11 +28,9 @@ export default function Appbar() {
         navigate("/viewer");
         break;
       case "LogIn":
-        // props.logIn.current.open();
         dispatchModal({ type: modalAction.OPEN_LOGIN });
         break;
       case "SignUp":
-        // props.signUp.current.open();
         dispatchModal({ type: modalAction.OPEN_SIGNUP });
         break;
       case "about":
@@ -65,31 +64,38 @@ export default function Appbar() {
         >
           Canvas
         </Typography>
-        {user !== undefined ? (
-          userOnlyButtons.map((button,index) => (
-            <Button
-              name={button}
-              key={index}
-              onClick={handleClick}
-              sx={{ color: "aqua", marginRight: "3vw" }}
-            >
-              {button}
-            </Button>
-          ))
-        ) : (
-          visitorOnlyButtons.map((button,index)=><Button
-          name={button}
-          key={index}
+        {user !== undefined
+          ? userOnlyButtons.map((button, index) => (
+              <>
+                <Button
+                  name={button}
+                  key={index}
+                  onClick={handleClick}
+                  sx={{ color: "aqua", marginRight: "3vw" }}
+                >
+                  {button}
+                </Button>
+              </>
+            ))
+          : visitorOnlyButtons.map((button, index) => (
+              <Button
+                name={button}
+                key={index}
+                onClick={handleClick}
+                sx={{ color: "aqua", marginRight: "3vw" }}
+              >
+                {button}
+              </Button>
+            ))}
+
+        <Button
+          name="about"
           onClick={handleClick}
           sx={{ color: "aqua", marginRight: "3vw" }}
         >
-          {button}
-        </Button>)
-        )}
-
-        <Button name="about" onClick={handleClick} sx={{ color: "aqua" }}>
           About
         </Button>
+        
       </Toolbar>
     </AppBar>
   );
