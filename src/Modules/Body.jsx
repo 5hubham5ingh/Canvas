@@ -47,11 +47,16 @@ function Body() {
     const handleIntersection = (entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("in-viewport"); // Add the "in-viewport" class to the observed card
+          entry.target.classList.add("in-viewport");
           const haloElement = document.createElement("div");
           haloElement.className = "halo";
           entry.target.appendChild(haloElement);
-          observer.unobserve(entry.target);
+        } else {
+          entry.target.classList.remove("in-viewport");
+          const haloElement = entry.target.querySelector(".halo");
+          if (haloElement) {
+            entry.target.removeChild(haloElement);
+          }
         }
       });
     };
@@ -84,22 +89,22 @@ function Body() {
       alignItems={"center"}
     >
       {cards.map((card, index) => (
-        <Card p="2em" key={index}   sx={{
-          color: "white",
-          background: "black",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          maxWidth: "100vw",
-          minHeight: "60vh",
-          borderRadius: "1em",
-          opacity: 0.9
-        }}>
-          <CardContent
-            className="Card  fade-in-left"
-           
-          >
-           
+        <Card
+          p="2em"
+          key={index}
+          sx={{
+            color: "white",
+            background: "black",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            maxWidth: "100vw",
+            minHeight: "60vh",
+            borderRadius: "1em",
+            opacity: 0.9,
+          }}
+        >
+          <CardContent className="Card  fade-in-left">
             <Grid container>
               <Grid
                 item
@@ -125,13 +130,12 @@ function Body() {
                   justifyContent: "center",
                 }}
               >
-                <Typography variant="h2">{card.heading}</Typography>
+                <Typography variant="h3">{card.heading}</Typography>
                 <Typography variant="h5" p={"1em"} pl={0}>
                   {card.para}
                 </Typography>
               </Grid>
             </Grid>
-            
           </CardContent>
         </Card>
       ))}
