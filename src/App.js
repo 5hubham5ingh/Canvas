@@ -14,7 +14,7 @@ export default function App() {
       <SnackBar />
       <Modal />
       <BrowserRouter>
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/Canvas" element={<LandingPage />} />
             <Route element={<RequireLogIn />}>

@@ -26,7 +26,9 @@ const Loader = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        width:"100vw"
+        width:"100vw",
+        backgroundImage: "linear-gradient(black, #202433)",
+       
       }}
     >
       <CircularProgressWithLabel value={progress} />
@@ -52,7 +54,7 @@ function CircularProgressWithLabel(props) {
           justifyContent: "center",
         }}
       >
-        <Typography variant="caption" component="div" color="text.secondary">
+        <Typography variant="caption" component="div"  color="steelblue">
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>

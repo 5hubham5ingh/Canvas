@@ -23,7 +23,7 @@ function ReportDesigner() {
   useEffect(() => {
     let url = new URLSearchParams(window.location.search);
     let fileId = url.get("id");
-    if (fileId !== null) {
+    if (fileId !== null && fileId !== undefined ) {
       try {
         let fileString = sessionStorage.getItem(fileId);
         designerRef.current.setReport(JSON.parse(fileString));

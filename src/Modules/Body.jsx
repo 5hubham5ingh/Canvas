@@ -84,8 +84,9 @@ function Body() {
     <Stack
       className="scroll-container"
       direction="column"
-      p={"6em"}
-      spacing={"4em"}
+      p={"6vw"}
+      pt="8vh"
+      spacing={"4vh"}
       alignItems={"center"}
     >
       {cards.map((card, index) => (

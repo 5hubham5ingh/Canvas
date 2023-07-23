@@ -75,7 +75,7 @@ function reducer(state = initialState, action) {
       };
     case ACTION.FILE_DELETED:
       return {
-        message: "file deleted.",
+        message: "File deleted.",
         severity: "info",
         visibility: true,
       };

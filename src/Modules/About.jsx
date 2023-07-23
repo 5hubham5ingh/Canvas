@@ -69,19 +69,25 @@ export default function About() {
         alignItems={"center"}
       >
         <Tooltip title="Developer's socials">
-          <>
+          <div className="socials">
             <IconButton variant="contained" color="white" onClick={openTwitter}>
               <Twitter sx={{ ...style }} />
             </IconButton>
             <IconButton variant="contained" onClick={openGitHub}>
               <GitHub sx={{ ...style }} />
             </IconButton>
-          </>
+          </div>
         </Tooltip>
         {user !== undefined && (
-          <Button name={"deleteAccount"} onClick={handleClick}>
-            <DeleteIcon sx={{ ...style }} />
-          </Button>
+          <Tooltip title="Delete account">
+            <Button
+              className="deleteAccount"
+              name={"deleteAccount"}
+              onClick={handleClick}
+            >
+              <DeleteIcon sx={{ ...style }} />
+            </Button>
+          </Tooltip>
         )}
       </Stack>
     </Box>

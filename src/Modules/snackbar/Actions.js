@@ -10,5 +10,5 @@ export const ACTION = {
   FILE_SAVED: "fileSaved",
   FILE_DELETED: "fileDeleted",
   SESSION_EXPIRED: "sessionExpired",
-  ACCOUNT_DELETED: "accountDeleted"
+  ACCOUNT_DELETED: "accountDeleted",
 };

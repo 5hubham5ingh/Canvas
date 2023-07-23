@@ -37,6 +37,7 @@ function Form(props) {
       snackbar.dispatch(SNACKBAR_ACTIONS.LOGGED_IN);
       setUser(response.data);
       modal.dispatchModal({ type: MODAL_ACTION.CLOSE });
+      
     } else if (response.status === SERVER_ERRORS.INVALID_ACCOUNT)
       snackbar.dispatch(SNACKBAR_ACTIONS.INVALID_ACCOUNT);
     else if (response.status === SERVER_ERRORS.INVALID_KEY)

@@ -23,6 +23,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Tooltip,
   Typography,
 } from "@mui/material";
 
@@ -81,7 +82,7 @@ function SideDrawer({
   exportPdf,
   exportHTML,
   openFile,
-  id
+  id,
 }) {
   const [open, setOpen] = React.useState(false);
   const [accordion, setAccordion] = useState(false);
@@ -116,34 +117,34 @@ function SideDrawer({
         enableFullScreen();
         break;
       case "Designer":
+        if(id.current !== undefined)
         navigate(`/Designer?id=${id.current}`);
+        else navigate("/Designer")
         break;
       case "Exit to Home":
-        navigate("/");
+        navigate("/Canvas");
         break;
       default:
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     let url = new URLSearchParams(window.location.search);
     let fileId = url.get("id");
 
-    const handlePopState=()=>{
+    const handlePopState = () => {
       navigate(`/Designer?id=${id.current}`);
-    }
+    };
 
     if (fileId !== null) {
-    window.addEventListener('popstate', handlePopState);
+      window.addEventListener("popstate", handlePopState);
     }
 
-    if (fileId !== null) 
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-    
-  })
-
+    if (fileId !== null)
+      return () => {
+        window.removeEventListener("popstate", handlePopState);
+      };
+  });
 
   return (
     <Drawer
@@ -153,7 +154,7 @@ function SideDrawer({
         sx: {
           backgroundColor: "lightsteelblue",
           color: "#000066",
-          borderColor: "#000066"
+          borderColor: "#000066",
         },
       }}
     >
@@ -194,17 +195,21 @@ function SideDrawer({
                     justifyContent: "center",
                   }}
                 >
-                  {[
-                    <FileOpenIcon key={text} />,
-                    <PrintIcon key={text} />,
-                    <PictureAsPdfIcon key={text} />,
-                    <HtmlIcon key={text} />,
-                  ].map(
-                    // eslint-disable-next-line
-                    (element, i) => {
-                      if (index === i) return element;
-                    }
-                  )}
+                  <Tooltip title={text}>
+                    <div className={text}>
+                      {[
+                        <FileOpenIcon key={text} />,
+                        <PrintIcon key={text} />,
+                        <PictureAsPdfIcon key={text} />,
+                        <HtmlIcon key={text} />,
+                      ].map(
+                        // eslint-disable-next-line
+                        (element, i) => {
+                          if (index === i) return element;
+                        }
+                      )}
+                    </div>
+                  </Tooltip>
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -233,16 +238,20 @@ function SideDrawer({
                   justifyContent: "center",
                 }}
               >
-                {[
-                  <FullscreenIcon key={text} />,
-                  <BrushIcon key={text} />,
-                  <ExitToAppIcon key={text} />,
-                ].map(
-                  // eslint-disable-next-line
-                  (element, i) => {
-                    if (index === i) return element;
-                  }
-                )}
+                <Tooltip title={text}>
+                  <div className={text}>
+                    {[
+                      <FullscreenIcon key={text} />,
+                      <BrushIcon key={text} />,
+                      <ExitToAppIcon key={text} />,
+                    ].map(
+                      // eslint-disable-next-line
+                      (element, i) => {
+                        if (index === i) return element;
+                      }
+                    )}
+                  </div>
+                </Tooltip>
               </ListItemIcon>
               <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
