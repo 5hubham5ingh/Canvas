@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkfree_reporting=self.webpackChunkfree_reporting||[]).push([[749],{8749:function(e,r,n){n.r(r);var s=n(7689),t=n(5367),u=n(184);r.default=function(){return void 0!==(0,t.a)().user?(0,u.jsx)(s.j3,{}):"Please login first."}}}]);
-//# sourceMappingURL=749.f499f4be.chunk.js.map
