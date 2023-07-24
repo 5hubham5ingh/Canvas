@@ -1,0 +1,8 @@
+{
+  "short_name": "Canvas",
+  "name": "Canvas",
+ 
+  "start_url": ".",
+  "display": "standalone",
+
+}
