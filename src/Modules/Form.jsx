@@ -27,7 +27,7 @@ function Form(props) {
   const { setUser } = useUser();
   const modal = useModal();
   const checkRef = useRef(false);
-  console.log("Form component", checkRef.current);
+  
   const logIn = (values) => {
     //Send logIn request
     const response = sendRequest(MethodType.GET, RequestType.LOGIN, values);

@@ -3,7 +3,7 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 
 function CheckBox(props, ref) {
   const [check, setCheck] = useState(false);
-  console.log("checkBox");
+  
   useImperativeHandle(ref, () => {
     return check;
   });

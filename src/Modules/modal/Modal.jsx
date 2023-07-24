@@ -59,15 +59,20 @@ export function Modal() {
 
   const style = {
     position: "absolute",
-    top: "40%",
+    top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "50vw",
+   
+    width:{
+      xs: "80vw",
+      sm: "80vw",
+      md: "50vw",
+    },
     bgcolor: "lightsteelblue",
     opacity: "0.9",
     borderRadius: "30px",
     boxShadow: 24,
-    p: 4,
+    p: 0,
   };
 
   const handleClose = () => {

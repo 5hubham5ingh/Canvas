@@ -8,10 +8,6 @@ import SignUp from "./SignUp";
 export default function SignUpNLogInTab({ tab }) {
   const [value, setValue] = React.useState(tab);
 
-  // React.useEffect(() => {
-  //   setValue(tab);
-  // }, []);
-
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>

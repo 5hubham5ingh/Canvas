@@ -12,7 +12,7 @@ import { useSnackBar } from "./snackbar/SnackBar";
 import { useUser } from "./User/userContext";
 
 function ReportDesigner() {
-  console.log("designer renders");
+  
   const designerRef = useRef();
   const snackbar = useSnackBar();
   const { asyncDispatchModal, dispatchModal } = useModal();
@@ -28,7 +28,7 @@ function ReportDesigner() {
         let fileString = sessionStorage.getItem(fileId);
         designerRef.current.setReport(JSON.parse(fileString));
       } catch (e) {
-        console.log(e);
+        
       }
     }
     else 
@@ -64,7 +64,7 @@ const saveNewFile = async (newFile) => {
 
 //Save the file
 const onSave = async (newReport) => {
-  console.log(JSON.stringify(newReport));
+
   let id = 0;
   //Check if the report being saved is a new report or an old one
   if (newReport.displayName === "NewFile") {
@@ -107,7 +107,7 @@ const onSave = async (newReport) => {
       sessionStorage.setItem(modifiedReport.id, modifiedFile);
       navigate(`/Viewer?id=${modifiedReport.id}`);
     } catch (e) {
-      console.log(e);
+      
     }
   };
   return (

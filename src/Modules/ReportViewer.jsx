@@ -72,28 +72,7 @@ export default function ReportViewer() {
       const result = await HtmlExport.exportDocument(doc, htmlExportSettings);
 
       //set the newly modified html as result
-      setResult(() => {
-        //get the root of newly crated html report
-        const root = parseNode(result.data);
-
-        //remove watermark by adding ".arjs-textBoxItem span{ display: none}" css class to the body inside <head>
-        root.getElementsByTagName("style")[0].innerHTML = `body { 
-          margin: 0pt;
-				padding: 0pt;
-			}
-			 .arjs-reportPage {
-				page-break-after: always;
-			}
-			@page {
-				margin: 0mm;
-			}
-			.arjs-textBoxItem span{
-				display:none;
-			}`;
-
-        result.data = root;
-        return result;
-      });
+      setResult( result);
     }
 
     //call the function to load the Report received as prop and modify it to remove the watermark
@@ -104,7 +83,7 @@ export default function ReportViewer() {
   const ExportPdf = () => {
     // document.getElementById("report").style = { display: "block" };
     if (exportRef.current) {
-      console.log("Xref.current:", exportRef.current);
+      
       exportRef.current.save("invoice");
     }
     // document.getElementById("report").style.display = "none";

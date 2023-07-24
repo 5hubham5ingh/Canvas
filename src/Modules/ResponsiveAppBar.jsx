@@ -6,10 +6,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -37,7 +33,7 @@ function DrawerAppBar(props) {
   const navItems = user === undefined ? visitorOnlyButtons: userOnlyButtons;
 
   const handleClick = (button) => {
-    console.log(button.target.name)
+   
     switch (button.target.name) {
       case "Designer":
         navigate("/designer");

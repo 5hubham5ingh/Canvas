@@ -119,7 +119,7 @@ export default function SnackBar() {
         <Alert
           onClose={close}
           severity={snackbar.state.severity}
-          sx={{ width: "100%" }}
+          
         >
           {snackbar.state.message}
         </Alert>
