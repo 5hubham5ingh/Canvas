@@ -107,6 +107,7 @@ function Form(props) {
           helperText={touched?.key ? errors?.key : ""}
           label="Key"
           fullWidth
+          type="password"
         />
       </Grid>
       <Grid item xs={12}>
