@@ -28,8 +28,8 @@ function DrawerAppBar(props) {
   const snackbar = useSnackBar();
   const { dispatchModal } = useModal();
   const { user, setUser } = useUser();
-  const userOnlyButtons = ["Designer", "Viewer", "Logout", "About"];
-  const visitorOnlyButtons = ["LogIn", "SignUp", "About"];
+  const userOnlyButtons = ["Designer", "Viewer", "Logout","Demo", "About"];
+  const visitorOnlyButtons = ["LogIn", "SignUp","Demo", "About"];
   const navItems = user === undefined ? visitorOnlyButtons: userOnlyButtons;
 
   const handleClick = (button) => {
@@ -55,6 +55,9 @@ function DrawerAppBar(props) {
         setUser(undefined);
         snackbar.dispatch(snackbarAction.LOGGED_OUT);
         sessionStorage.removeItem(user.accountName);
+        break;
+      case "Demo":
+        dispatchModal({type: modalAction.DEMO});
         break;
 
       default:

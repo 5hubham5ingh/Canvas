@@ -5,6 +5,7 @@ import SignUpNLogInTab from "../SignUpNLogInTabs";
 import SaveNewFile from "./SaveNewFile/SaveNewFile";
 import OpenFiles from "./OpenFiles/OpenFiles";
 import DeleteAccount from "./DeleteAccount/DeleteAccount";
+import Demo from "./Demo/Demo";
 
 const initialState = {
   what: "",
@@ -26,6 +27,8 @@ function reducer(state = initialState, action) {
       return { what: ACTION.OPEN_FILES, open: true, payload: action.payload };
     case ACTION.DELETE_ACCOUNT:
       return {what: ACTION.DELETE_ACCOUNT, open: true, payload: action.payload};
+    case ACTION.DEMO:
+      return {what : ACTION.DEMO, open: true}
     default:
       return state;
   }
@@ -97,7 +100,8 @@ export function Modal() {
           <SaveNewFile file={state?.payload} />
         ) : state.what === ACTION.OPEN_FILES ? (
           <OpenFiles open={state.payload} />
-        ) : state.what === ACTION.DELETE_ACCOUNT ? (<DeleteAccount account= {state.payload} closeModal={handleClose}/>):(
+        ) : state.what === ACTION.DELETE_ACCOUNT ? (<DeleteAccount account= {state.payload} closeModal={handleClose}/>):
+        state.what === ACTION.DEMO ? (<Demo/>):(
           ""
         )}
       </Box>

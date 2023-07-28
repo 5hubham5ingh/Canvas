@@ -4,5 +4,6 @@ export const ACTION = {
   SAVE_NEW_FILE: "saveNewFile",
   CLOSE: "close",
   OPEN_FILES: "openFiles",
-  DELETE_ACCOUNT: "deleteAccount"
+  DELETE_ACCOUNT: "deleteAccount",
+  DEMO: "demo"
 };
