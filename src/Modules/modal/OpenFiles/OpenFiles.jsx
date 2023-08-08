@@ -44,7 +44,7 @@ export default function OpenFiles({ open }) {
   };
   return (
     <>
-      <Stack direction="column">
+      <Stack direction="column" m="2vw">
         <Typography pl={"0.5em"} variant="h6">
           Open file
         </Typography>

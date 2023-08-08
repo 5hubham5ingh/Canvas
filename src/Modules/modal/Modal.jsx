@@ -26,9 +26,13 @@ function reducer(state = initialState, action) {
     case ACTION.OPEN_FILES:
       return { what: ACTION.OPEN_FILES, open: true, payload: action.payload };
     case ACTION.DELETE_ACCOUNT:
-      return {what: ACTION.DELETE_ACCOUNT, open: true, payload: action.payload};
+      return {
+        what: ACTION.DELETE_ACCOUNT,
+        open: true,
+        payload: action.payload,
+      };
     case ACTION.DEMO:
-      return {what : ACTION.DEMO, open: true}
+      return { what: ACTION.DEMO, open: true };
     default:
       return state;
   }
@@ -65,8 +69,8 @@ export function Modal() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-   
-    width:{
+
+    width: {
       xs: "80vw",
       sm: "80vw",
       md: "50vw",
@@ -91,7 +95,6 @@ export function Modal() {
       aria-describedby="log-in-page"
     >
       <Box sx={style}>
-        
         {state.what === "signUp" ? (
           <SignUpNLogInTab tab={state.what} />
         ) : state.what === "logIn" ? (
@@ -100,8 +103,11 @@ export function Modal() {
           <SaveNewFile file={state?.payload} />
         ) : state.what === ACTION.OPEN_FILES ? (
           <OpenFiles open={state.payload} />
-        ) : state.what === ACTION.DELETE_ACCOUNT ? (<DeleteAccount account= {state.payload} closeModal={handleClose}/>):
-        state.what === ACTION.DEMO ? (<Demo/>):(
+        ) : state.what === ACTION.DELETE_ACCOUNT ? (
+          <DeleteAccount account={state.payload} closeModal={handleClose} />
+        ) : state.what === ACTION.DEMO ? (
+          <Demo />
+        ) : (
           ""
         )}
       </Box>

@@ -63,7 +63,7 @@ function SaveNewFile({ file }) {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} p="2vw">
       <Grid item xs={12}>
         <TextField
           value={value}

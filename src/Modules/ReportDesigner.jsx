@@ -74,7 +74,7 @@ const onSave = async (newReport) => {
     newReport.id = id;     
     await asyncDispatchModal({
       type: MODAL_ACTION.SAVE_NEW_FILE,
-      payload: newFile,
+      payload: newReport,
     });
     return await saveNewFile(newReport);
     
