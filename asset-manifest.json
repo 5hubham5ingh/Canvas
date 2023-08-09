@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/Canvas/static/css/main.6234cfa5.css",
-    "main.js": "/Canvas/static/js/main.121ccacf.js",
+    "main.js": "/Canvas/static/js/main.0cfeb93d.js",
     "static/css/349.97d33a31.chunk.css": "/Canvas/static/css/349.97d33a31.chunk.css",
-    "static/js/349.2cdcda13.chunk.js": "/Canvas/static/js/349.2cdcda13.chunk.js",
+    "static/js/349.7082c564.chunk.js": "/Canvas/static/js/349.7082c564.chunk.js",
     "static/css/987.d65333e3.chunk.css": "/Canvas/static/css/987.d65333e3.chunk.css",
     "static/js/987.48d5d62c.chunk.js": "/Canvas/static/js/987.48d5d62c.chunk.js",
     "static/js/749.18017257.chunk.js": "/Canvas/static/js/749.18017257.chunk.js",
@@ -19,9 +19,9 @@
     "static/media/excel.png": "/Canvas/static/media/excel.d78a2183a91be9010501.png",
     "index.html": "/Canvas/index.html",
     "main.6234cfa5.css.map": "/Canvas/static/css/main.6234cfa5.css.map",
-    "main.121ccacf.js.map": "/Canvas/static/js/main.121ccacf.js.map",
+    "main.0cfeb93d.js.map": "/Canvas/static/js/main.0cfeb93d.js.map",
     "349.97d33a31.chunk.css.map": "/Canvas/static/css/349.97d33a31.chunk.css.map",
-    "349.2cdcda13.chunk.js.map": "/Canvas/static/js/349.2cdcda13.chunk.js.map",
+    "349.7082c564.chunk.js.map": "/Canvas/static/js/349.7082c564.chunk.js.map",
     "987.d65333e3.chunk.css.map": "/Canvas/static/css/987.d65333e3.chunk.css.map",
     "987.48d5d62c.chunk.js.map": "/Canvas/static/js/987.48d5d62c.chunk.js.map",
     "749.18017257.chunk.js.map": "/Canvas/static/js/749.18017257.chunk.js.map",
@@ -35,6 +35,6 @@
   },
   "entrypoints": [
     "static/css/main.6234cfa5.css",
-    "static/js/main.121ccacf.js"
+    "static/js/main.0cfeb93d.js"
   ]
 }
