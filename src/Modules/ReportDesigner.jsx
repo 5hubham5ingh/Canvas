@@ -49,8 +49,7 @@ const saveNewFile = async (newFile) => {
   if (fileName !== null) {
     sessionStorage.removeItem("fileName");
     return Promise.resolve({
-      id: newFile.id,
-      displayName: fileName,
+      displayName: fileName, ...newFile
     });
   } else {
     return new Promise((resolve) => {
@@ -62,12 +61,13 @@ const saveNewFile = async (newFile) => {
   }
 };
 
+
 //Save the file
 const onSave = async (newReport) => {
-
-  let id = 0;
+  
   //Check if the report being saved is a new report or an old one
   if (newReport.displayName === "NewFile") {
+    let id = 0;
     //if it's a new report
     //set unique report id
     user.files.forEach((file)=>id += parseInt(file.id));
@@ -94,10 +94,7 @@ const onSave = async (newReport) => {
   }
 
  
-  return Promise.resolve({
-    id: newReport.id,
-    displayName: newReport.displayName,
-  });
+  return Promise.resolve(newReport);
 };
 
   //to view the report in the viewer
@@ -107,7 +104,7 @@ const onSave = async (newReport) => {
       sessionStorage.setItem(modifiedReport.id, modifiedFile);
       navigate(`/Viewer?id=${modifiedReport.id}`);
     } catch (e) {
-      
+      console.log((e));
     }
   };
   return (

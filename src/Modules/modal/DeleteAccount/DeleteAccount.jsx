@@ -24,7 +24,7 @@ function DeleteAccount({account,closeModal}) {
         
     }
 
-    return (<Stack direction="column">
+    return (<Stack direction="column" p="2vw">
     <Typography variant="h6">Are you sure you want to delete your account?</Typography>
     <Stack direction="row">
     <Button size="small" onClick={()=> setDeleteAccount(true)}>Yes</Button>

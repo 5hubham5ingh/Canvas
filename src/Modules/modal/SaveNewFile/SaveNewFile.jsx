@@ -35,12 +35,10 @@ function SaveNewFile({ file }) {
     //If validation succeed
     file.id = user.files.length.toString();
     file.displayName = fileName;
-    debugger;
     const response = sendRequest(MethodType.POST, RequestType.SAVE_FILE, file);
     if (response.status === ERROR.PREEXISTING_FILE)
       dispatch(SNACKBAR_ACTION.PREEXISTING_FILE);
     else if (response.status === RESPONSE.FILE_SAVED_SUCCESSFUL) {
-      debugger
       setUser(response.data);
       dispatch(SNACKBAR_ACTION.FILE_SAVED);
       sessionStorage.setItem("fileName",value);
