@@ -29,6 +29,7 @@ export default function ReportViewer() {
   const invoiceRef = useRef();
   const { user } = useUser();
   const id =useRef();
+  
 
   useEffect(() => {
     let url = new URLSearchParams(window.location.search);
@@ -42,6 +43,19 @@ export default function ReportViewer() {
         console.log(e);
       }
     }
+
+    window.addEventListener('popstate', handlePopstate);
+
+    function handlePopstate(e){
+      e.preventDefault();
+      console.log("popped")
+      let url = new URLSearchParams(window.location.search);
+    let fileId = url.get("id");
+    if (fileId !== null) {
+      window.location.href = `/Designer?id=${fileId}`
+    }}
+
+    return()=>{ window.removeEventListener('popstate', handlePopstate)};
   }, []);
 
 
@@ -227,3 +241,4 @@ export default function ReportViewer() {
     </Box>
   );
 }
+

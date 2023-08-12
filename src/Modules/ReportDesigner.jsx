@@ -31,8 +31,7 @@ function ReportDesigner() {
         
       }
     }
-    else 
-    designerRef.current.setReport(newFile);
+    else designerRef.current.setReport(newFile);
    
   }, []);
 
