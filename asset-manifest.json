@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Canvas/static/css/main.6234cfa5.css",
-    "main.js": "/Canvas/static/js/main.cc3bbb4e.js",
+    "main.js": "/Canvas/static/js/main.026f86bf.js",
     "static/css/349.97d33a31.chunk.css": "/Canvas/static/css/349.97d33a31.chunk.css",
     "static/js/349.fccafa8a.chunk.js": "/Canvas/static/js/349.fccafa8a.chunk.js",
     "static/css/987.d65333e3.chunk.css": "/Canvas/static/css/987.d65333e3.chunk.css",
@@ -19,7 +19,7 @@
     "static/media/excel.png": "/Canvas/static/media/excel.d78a2183a91be9010501.png",
     "index.html": "/Canvas/index.html",
     "main.6234cfa5.css.map": "/Canvas/static/css/main.6234cfa5.css.map",
-    "main.cc3bbb4e.js.map": "/Canvas/static/js/main.cc3bbb4e.js.map",
+    "main.026f86bf.js.map": "/Canvas/static/js/main.026f86bf.js.map",
     "349.97d33a31.chunk.css.map": "/Canvas/static/css/349.97d33a31.chunk.css.map",
     "349.fccafa8a.chunk.js.map": "/Canvas/static/js/349.fccafa8a.chunk.js.map",
     "987.d65333e3.chunk.css.map": "/Canvas/static/css/987.d65333e3.chunk.css.map",
@@ -35,6 +35,6 @@
   },
   "entrypoints": [
     "static/css/main.6234cfa5.css",
-    "static/js/main.cc3bbb4e.js"
+    "static/js/main.026f86bf.js"
   ]
 }
