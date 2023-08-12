@@ -1,7 +1,8 @@
 import { ERROR } from "../error";
+import lzString from 'lz-string';
 
 export function setData(key, value) {
-  const dataString = JSON.stringify(value);
+  const dataString = lzString.compress(JSON.stringify(value));
 
   try {
     localStorage.setItem(key, dataString);
@@ -13,7 +14,7 @@ export function setData(key, value) {
 }
 
 export function getData(key) {
-  const data = localStorage.getItem(key);
+  const data = lzString.decompress(localStorage.getItem(key));
   if (data === null) return null;
   else return JSON.parse(data);
 }
